@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oasis Smart City — Unified Executive Dashboard</title>
+<meta name="description" content="Single-file executive dashboard for the Oasis Smart City 2025 synthetic replay: eight pillars, one window clock, early-warning classification.">
+<meta name="color-scheme" content="light">
+<style>/*__STYLE__*/</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="Section navigation">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">O</div>
+      <div class="brand-txt">
+        <b>Oasis Smart City</b>
+        <span>2025 synthetic replay</span>
+      </div>
+    </div>
+
+    <nav class="nav-group" aria-label="Overall analysis">
+      <div class="nav-label">Overall analysis</div>
+      <button class="nav-item on" data-pane="overview" title="Executive overview">
+        <span class="nav-ic" aria-hidden="true">◎</span>
+        <span class="txt">Executive overview</span>
+        <span class="nav-code">ALL</span>
+      </button>
+      <div id="navPillars"></div>
+    </nav>
+
+    <nav class="nav-group" aria-label="Early warning">
+      <div class="nav-label">Early warning</div>
+      <button class="nav-item" data-tab="ew" title="Early warning">
+        <span class="nav-ic" aria-hidden="true">⚑</span>
+        <span class="txt">Warning register</span>
+        <span class="nav-code">EW</span>
+      </button>
+    </nav>
+
+    <div class="side-foot">
+      <div>Synthetic — for training only.</div>
+      <div>Oasis 2025 Dataset Replay</div>
+      <div>Last record: 2025-12-31</div>
+      <div style="margin-top:6px;color:#B0BCCB">Gad · Aisha · Ayat · Aya</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="stickytop">
+      <header class="topbar">
+        <div class="titles">
+          <h1>Oasis Smart City — Unified Executive Dashboard</h1>
+          <p>8 pillars · 4 analysts · one 365-day replay · every figure recomputed for the selected window</p>
+        </div>
+
+        <div class="seg" role="tablist" aria-label="Dashboard tabs">
+          <button role="tab" data-tab="overall" class="on" aria-selected="true">
+            <span class="seg-ic" aria-hidden="true">◎</span>OverAll Analysis
+          </button>
+          <button role="tab" data-tab="ew" aria-selected="false">
+            <span class="seg-ic" aria-hidden="true">⚑</span>Early Warning
+          </button>
+        </div>
+
+        <div class="notice" role="note" title="This dashboard replays a synthetic training dataset. It is not a live system.">
+          <i aria-hidden="true"></i>
+          Synthetic — for training only | Oasis 2025 Dataset Replay | Last record: 2025-12-31
+        </div>
+      </header>
+
+      <div class="filterbar" role="group" aria-label="Time window">
+        <span class="fb-lab">Window</span>
+        <input type="date" id="fFrom" value="2025-12-01" min="2025-01-01" max="2025-12-31" aria-label="From date">
+        <span style="color:#94A3B8;font-size:11px">→</span>
+        <input type="date" id="fTo" value="2025-12-31" min="2025-01-01" max="2025-12-31" aria-label="To date">
+        <button class="btn btn-primary" id="btnApply">Apply</button>
+        <button class="btn" id="btnReset">Reset</button>
+        <span class="fb-sep" aria-hidden="true"></span>
+        <span class="fb-lab">Presets</span>
+        <span id="presets" style="display:inline-flex;gap:6px;flex-wrap:wrap"></span>
+        <span class="fb-echo" id="fbEcho"></span>
+      </div>
+    </div>
+
+    <div class="view" id="viewOverall"></div>
+    <div class="view" id="viewEW" style="display:none"></div>
+
+    <footer style="padding:0 22px 40px;font-size:10.4px;color:#94A3B8;line-height:1.6;max-width:120ch">
+      <b style="color:#7C8A9C">Sources.</b> Gad — Energy, Buildings &amp; HVAC, Water, Waste (v2 cleaned series, D-12 applied) ·
+      Aisha — Government &amp; Citizen Services, Environment · Ayat — Mobility &amp; Traffic, Public Safety &amp; Surveillance ·
+      Aya — Early Warning (historical replay, classification, review episodes).
+      Detection logic and the warning JSON schema are reproduced unchanged; grouping never re-labels an alert.
+      Where the brief and the dataset disagree, the dataset wins and the difference is stated in the data-quality panel.
+    </footer>
+  </main>
+</div>
+
+<noscript>
+  <div style="padding:24px;font-size:13px">This dashboard is a single self-contained HTML file and needs JavaScript enabled to draw its charts.</div>
+</noscript>
+
+<script>/*__PLOTLY__*/</script>
+<script>window.__DASH__ = /*__DATA__*/;</script>
+<script>/*__APP__*/</script>
+</body>
+</html>

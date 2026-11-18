@@ -1,0 +1,5 @@
+exam,distribution,sigma2,sigma2 from,daily P10–P90 coverage %,weekly P10–P90 coverage %,monthly P10–P90 coverage %
+Exam A (1 Sep–30 Oct),Poisson,0.0,Exam B (1 Nov–30 Dec),92.2,65.7,37.8
+Exam A (1 Sep–30 Oct),Negative binomial,0.0105,Exam B (1 Nov–30 Dec),92.6,68.8,46.1
+Exam B (1 Nov–30 Dec),Poisson,0.0,Exam A (1 Sep–30 Oct),92.2,85.4,68.9
+Exam B (1 Nov–30 Dec),Negative binomial,0.0609,Exam A (1 Sep–30 Oct),93.5,92.6,92.8

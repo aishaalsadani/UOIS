@@ -1,0 +1,6 @@
+﻿component,weight_pct
+severity,30
+independent_reports,25
+elapsed_vs_sla,20
+service_criticality,15
+verified_multi_zone,10

@@ -1,0 +1,25 @@
+# Phase 4A dashboard prototype: presentation-data export settings.
+# Inputs are the frozen Phase 3B.2 pilot outputs (paths come from historical/pilot_config.toml)
+# and the Mode B scenario pack. Outputs stay inside complaint_verification/dashboard/.
+banner_mode_a = "SYNTHETIC HISTORICAL DATA — NOT REAL-WORLD VERIFICATION"
+banner_mode_b = "SYNTHETIC CONTROLLED DEMONSTRATION — NOT HISTORICAL DATA, NOT ACUD DATA"
+default_complaint = "SR-010083"
+display_timezone = "Africa/Cairo"
+# Maximum individual observations kept per evidence item for the timeline (the rest are summarised).
+max_observations_per_item = 60
+
+[outputs]  # relative to this folder
+data_script = "data/presentation_data.js"
+data_document = "data/presentation_data.json"
+script_variable = "CV_PRESENTATION_DATA"
+
+[coincidence]
+# Window and subset of the Phase 3B.2 sensitivity analysis shown next to contextual evidence.
+window_hours = 6
+subset = "context_blind_strata_only"
+[coincidence.source_for_evidence_type]
+ews_district_alert = "ews_alerts"
+incident_report = "incidents_same_zone"
+ops_ticket = "water_tickets"
+work_order = "water_work_orders"
+similar_complaints = "similar_complaints_same_zone"

@@ -1,0 +1,128 @@
+{
+  "model_file": "lightgbm_zone_forecast.txt",
+  "objective": "poisson",
+  "params": {
+    "objective": "poisson",
+    "learning_rate": 0.03,
+    "num_leaves": 15,
+    "min_data_in_leaf": 40,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "lambda_l2": 1.0,
+    "seed": 42,
+    "verbose": -1
+  },
+  "num_trees": 400,
+  "features": [
+    "zone_id",
+    "category_id",
+    "h",
+    "dow",
+    "is_weekend",
+    "is_holiday",
+    "mean_7",
+    "mean_30",
+    "std_30",
+    "same_dow_4w",
+    "trend",
+    "weekend_ratio",
+    "city_mean_7",
+    "city_mean_30",
+    "zone_share_30",
+    "zone_total_mean_30"
+  ],
+  "categorical_features": [
+    "zone_id",
+    "category_id"
+  ],
+  "zone_order": [
+    "Z01",
+    "Z02",
+    "Z03",
+    "Z04",
+    "Z05",
+    "Z06"
+  ],
+  "category_order": [
+    "app",
+    "cleanliness",
+    "hvac",
+    "noise",
+    "parking",
+    "parks",
+    "power_outage",
+    "roads",
+    "safety",
+    "sewer",
+    "streetlights",
+    "traffic_signals",
+    "waste_overflow",
+    "water_leak",
+    "water_outage"
+  ],
+  "pillar": {
+    "app": "citizen_services",
+    "cleanliness": "waste",
+    "hvac": "buildings",
+    "noise": "environment",
+    "parking": "mobility",
+    "parks": "environment",
+    "power_outage": "energy",
+    "roads": "mobility",
+    "safety": "public_safety",
+    "sewer": "water",
+    "streetlights": "public_safety",
+    "traffic_signals": "mobility",
+    "waste_overflow": "waste",
+    "water_leak": "water",
+    "water_outage": "water"
+  },
+  "window_days": 30,
+  "horizon_days": 15,
+  "share_smoothing": 0.5,
+  "training_cutoffs": [
+    "2025-07-30",
+    "2025-12-16"
+  ],
+  "forecast_cutoff": "2025-12-31",
+  "weekend_dows": [
+    4,
+    5
+  ],
+  "holidays": [
+    "2025-01-07",
+    "2025-01-25",
+    "2025-03-30",
+    "2025-03-31",
+    "2025-04-01",
+    "2025-04-02",
+    "2025-04-21",
+    "2025-04-25",
+    "2025-05-01",
+    "2025-06-05",
+    "2025-06-06",
+    "2025-06-07",
+    "2025-06-08",
+    "2025-06-09",
+    "2025-06-26",
+    "2025-06-30",
+    "2025-07-23",
+    "2025-09-04",
+    "2025-10-06",
+    "2026-01-07"
+  ],
+  "forecast_method": "Top-down",
+  "top_down": {
+    "city_model_file": "lightgbm_complaints_forecast.txt",
+    "city_model_card": "model_card.json",
+    "share_window_days": 60
+  },
+  "versions": {
+    "lightgbm": "4.7.0",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pyarrow": "26.0.0"
+  }
+}

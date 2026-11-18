@@ -1,0 +1,414 @@
+{
+  "gates": [
+    {
+      "name": "overview renders 5 KPI cards",
+      "ok": true,
+      "detail": "5"
+    },
+    {
+      "name": "overview renders 4 charts",
+      "ok": true,
+      "detail": "4"
+    },
+    {
+      "name": "overview KPI values are numbers",
+      "ok": true,
+      "detail": "5,304 / 59.6 / 48.2 / 473 / 2,143"
+    },
+    {
+      "name": "pillar health strip has 8 cards",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "ENE pane renders 6 KPI cards",
+      "ok": true,
+      "detail": "8.45 / 16.485 / 68.9 / 106 / 0.06 / 0.34"
+    },
+    {
+      "name": "ENE pane draws its charts",
+      "ok": true,
+      "detail": "5 drawn"
+    },
+    {
+      "name": "ENE pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "8 shapes"
+    },
+    {
+      "name": "ENE pillar note written",
+      "ok": true,
+      "detail": "All 6 rows sit inside their own 2025 envelope for 1 Dec 2025"
+    },
+    {
+      "name": "BLD pane renders 5 KPI cards",
+      "ok": true,
+      "detail": "1.16 / 50 / 85.7 / 8.79 / 96.0"
+    },
+    {
+      "name": "BLD pane draws its charts",
+      "ok": true,
+      "detail": "5 drawn"
+    },
+    {
+      "name": "BLD pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "6 shapes"
+    },
+    {
+      "name": "BLD pillar note written",
+      "ok": true,
+      "detail": "All 5 rows sit inside their own 2025 envelope for 1 Dec 2025"
+    },
+    {
+      "name": "WAT pane renders 5 KPI cards",
+      "ok": true,
+      "detail": "32.60 / 9 / 98.84 / 263.4 / 85.7"
+    },
+    {
+      "name": "WAT pane draws its charts",
+      "ok": true,
+      "detail": "5 drawn"
+    },
+    {
+      "name": "WAT pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "7 shapes"
+    },
+    {
+      "name": "WAT pillar note written",
+      "ok": true,
+      "detail": "2 of 5 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "WST pane renders 5 KPI cards",
+      "ok": true,
+      "detail": "9.03 / 3.86 / 5.42 / 7.52 / 80.0"
+    },
+    {
+      "name": "WST pane draws its charts",
+      "ok": true,
+      "detail": "5 drawn"
+    },
+    {
+      "name": "WST pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "7 shapes"
+    },
+    {
+      "name": "WST pillar note written",
+      "ok": true,
+      "detail": "2 of 5 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "GCS pane renders 5 KPI cards",
+      "ok": true,
+      "detail": "59.6 / 2,143 / 48.2 / 473 / 3.66"
+    },
+    {
+      "name": "GCS pane draws its charts",
+      "ok": true,
+      "detail": "6 drawn"
+    },
+    {
+      "name": "GCS pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "7 shapes"
+    },
+    {
+      "name": "GCS pillar note written",
+      "ok": true,
+      "detail": "2 of 5 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "ENV pane renders 6 KPI cards",
+      "ok": true,
+      "detail": "69.4 / 0 / 31.1 / 48.6 / 1.97 / 584"
+    },
+    {
+      "name": "ENV pane draws its charts",
+      "ok": true,
+      "detail": "6 drawn"
+    },
+    {
+      "name": "ENV pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "7 shapes"
+    },
+    {
+      "name": "ENV pillar note written",
+      "ok": true,
+      "detail": "1 of 6 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "MOB pane renders 8 KPI cards",
+      "ok": true,
+      "detail": "0.559 / 1,089 / 470 / 18.2 / 54.4 / 81.8 / 94.0 / 7.0"
+    },
+    {
+      "name": "MOB pane draws its charts",
+      "ok": true,
+      "detail": "6 drawn"
+    },
+    {
+      "name": "MOB pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "10 shapes"
+    },
+    {
+      "name": "MOB pillar note written",
+      "ok": true,
+      "detail": "5 of 8 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "PSS pane renders 9 KPI cards",
+      "ok": true,
+      "detail": "2,219 / 37.0 / 21.9 / 13.0 / 2.25 / 98.1 / 108 / 83.3 / 33.3"
+    },
+    {
+      "name": "PSS pane draws its charts",
+      "ok": true,
+      "detail": "6 drawn"
+    },
+    {
+      "name": "PSS pillar index drawn with band shapes",
+      "ok": true,
+      "detail": "11 shapes"
+    },
+    {
+      "name": "PSS pillar note written",
+      "ok": true,
+      "detail": "3 of 9 rows fall outside their 2025 envelope in this window:"
+    },
+    {
+      "name": "ENE-01 December = 8.45 GWh (Gad table)",
+      "ok": true,
+      "detail": "['8.45']"
+    },
+    {
+      "name": "tab 2 ribbon shows 8 pillars",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "classification ladder keeps 5 tiers",
+      "ok": true,
+      "detail": "5"
+    },
+    {
+      "name": "ladder counts are 0/11/382/16/0",
+      "ok": true,
+      "detail": "0 / 11 / 382 / 16 / 0"
+    },
+    {
+      "name": "32 EWE signals listed",
+      "ok": true,
+      "detail": "32"
+    },
+    {
+      "name": "15 EWB signals listed",
+      "ok": true,
+      "detail": "15"
+    },
+    {
+      "name": "water review episodes listed",
+      "ok": true,
+      "detail": "60 rows"
+    },
+    {
+      "name": "2 data-quality cards",
+      "ok": true,
+      "detail": "2"
+    },
+    {
+      "name": "tab 2 has no merged 'alerts' counter card",
+      "ok": true,
+      "detail": "0 kpi cards"
+    },
+    {
+      "name": "no zone / geo map trace in any chart",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "alert explorer opens with 60 records",
+      "ok": true,
+      "detail": "60"
+    },
+    {
+      "name": "alert card shows a detection lag",
+      "ok": true,
+      "detail": "0.9 h after the evidence"
+    },
+    {
+      "name": "show-all expands to 409 records",
+      "ok": true,
+      "detail": "409"
+    },
+    {
+      "name": "preset All 2025 changes the overview KPIs",
+      "ok": true,
+      "detail": "5,304 / 59.6 / 48.2 / 473 / 2,143 -> 3,735 / 43.3 / 48.7 / 473 / 2,117"
+    },
+    {
+      "name": "filter echo states 365 days",
+      "ok": true,
+      "detail": "1 Jan 2025 → 31 Dec 2025 · 365 days · 12.00 month-equivalents"
+    },
+    {
+      "name": "returning to 1M restores December",
+      "ok": true,
+      "detail": "5,304 / 59.6 / 48.2 / 473 / 2,143"
+    },
+    {
+      "name": "pillar KPI cards follow the window",
+      "ok": true,
+      "detail": "32.60 / 9 / 98.84 / 263.4 / 85.7 -> 30.83 / 72 / 98.69 / 240.0 / 94.1"
+    },
+    {
+      "name": "no horizontal overflow at 1024 px",
+      "ok": true,
+      "detail": "0 px"
+    },
+    {
+      "name": "no horizontal overflow at 1280 px",
+      "ok": true,
+      "detail": "0 px"
+    },
+    {
+      "name": "no horizontal overflow at 1680 px",
+      "ok": true,
+      "detail": "0 px"
+    },
+    {
+      "name": "zero console errors",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "pillars": {
+    "ENE": {
+      "charts": 5,
+      "kpis": 6,
+      "values": [
+        "8.45",
+        "16.485",
+        "68.9",
+        "106",
+        "0.06",
+        "0.34"
+      ],
+      "index_chart": 1,
+      "shapes": 8,
+      "note": "All 6 rows sit inside their own 2025 envelope for 1 Dec 2025 → 31 Dec 2025, so every bar is green: the signal is the bar"
+    },
+    "BLD": {
+      "charts": 5,
+      "kpis": 5,
+      "values": [
+        "1.16",
+        "50",
+        "85.7",
+        "8.79",
+        "96.0"
+      ],
+      "index_chart": 1,
+      "shapes": 6,
+      "note": "All 5 rows sit inside their own 2025 envelope for 1 Dec 2025 → 31 Dec 2025, so every bar is green: the signal is the bar"
+    },
+    "WAT": {
+      "charts": 5,
+      "kpis": 5,
+      "values": [
+        "32.60",
+        "9",
+        "98.84",
+        "263.4",
+        "85.7"
+      ],
+      "index_chart": 1,
+      "shapes": 7,
+      "note": "2 of 5 rows fall outside their 2025 envelope in this window: Outage resolution (watch), VLV/PMP on-SLA (critical)."
+    },
+    "WST": {
+      "charts": 5,
+      "kpis": 5,
+      "values": [
+        "9.03",
+        "3.86",
+        "5.42",
+        "7.52",
+        "80.0"
+      ],
+      "index_chart": 1,
+      "shapes": 7,
+      "note": "2 of 5 rows fall outside their 2025 envelope in this window: Overflow at 06:00 (watch), BIN on-SLA (watch)."
+    },
+    "GCS": {
+      "charts": 6,
+      "kpis": 5,
+      "values": [
+        "59.6",
+        "2,143",
+        "48.2",
+        "473",
+        "3.66"
+      ],
+      "index_chart": 1,
+      "shapes": 7,
+      "note": "2 of 5 rows fall outside their 2025 envelope in this window: Open backlog (critical), Gov processing days (critical)."
+    },
+    "ENV": {
+      "charts": 6,
+      "kpis": 6,
+      "values": [
+        "69.4",
+        "0",
+        "31.1",
+        "48.6",
+        "1.97",
+        "584"
+      ],
+      "index_chart": 1,
+      "shapes": 7,
+      "note": "1 of 6 rows fall outside their 2025 envelope in this window: Environment requests (critical)."
+    },
+    "MOB": {
+      "charts": 6,
+      "kpis": 8,
+      "values": [
+        "0.559",
+        "1,089",
+        "470",
+        "18.2",
+        "54.4",
+        "81.8",
+        "94.0",
+        "7.0"
+      ],
+      "index_chart": 1,
+      "shapes": 10,
+      "note": "5 of 8 rows fall outside their 2025 envelope in this window: Congestion index (critical), Traffic requests (critical), R"
+    },
+    "PSS": {
+      "charts": 6,
+      "kpis": 9,
+      "values": [
+        "2,219",
+        "37.0",
+        "21.9",
+        "13.0",
+        "2.25",
+        "98.1",
+        "108",
+        "83.3",
+        "33.3"
+      ],
+      "index_chart": 1,
+      "shapes": 11,
+      "note": "3 of 9 rows fall outside their 2025 envelope in this window: Incident volume (critical), Incidents / 1,000 (critical), L"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

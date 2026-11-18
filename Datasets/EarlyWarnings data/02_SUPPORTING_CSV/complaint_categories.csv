@@ -1,0 +1,17 @@
+﻿category_id,category_name_ar,pillar
+waste_overflow,تراكم المخلفات,waste
+streetlights,إنارة الشوارع,public_safety
+cleanliness,النظافة العامة,waste
+water_leak,تسرب مياه,water
+roads,الطرق والأرصفة,mobility
+parking,مخالفات الانتظار,mobility
+noise,ضوضاء,environment
+water_outage,انقطاع المياه,water
+power_outage,انقطاع الكهرباء,energy
+sewer,الصرف الصحي,water
+safety,الأمن والسلامة,public_safety
+traffic_signals,إشارات المرور,mobility
+parks,الحدائق والمساحات الخضراء,environment
+hvac,تكييف مبنى عام,buildings
+app,مشكلة في التطبيق,citizen_services
+water_pressure_low,ضعف ضغط المياه,water

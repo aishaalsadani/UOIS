@@ -1,0 +1,5 @@
+﻿scenario_id,period,zone_id,pillar,kpi_id,input_change_pct
+SCN-ENERGY-Z03,2025-10,Z03,energy,avg_kwh_per_meter_reading,15
+SCN-WATER-Z03,2025-10,Z03,water,avg_water_pressure_bar,-20
+SCN-DIGITAL-Z05,2025-10,Z05,citizen_services,complaints_received,30
+SCN-TRAFFIC-Z02,2025-10,Z02,mobility,avg_vehicle_speed_kmh,-15

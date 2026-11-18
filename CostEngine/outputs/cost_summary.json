@@ -1,0 +1,751 @@
+{
+ "ok": true,
+ "engine_version": "1.0",
+ "computed_at": "2026-11-02T13:59:48",
+ "dataset_label": "SYNTHETIC: Oasis District 2025 training kit, not real ACUD data",
+ "method": "rules and statistics, no trained model",
+ "prices": {
+  "electricity_egp_kwh": {
+   "value": 2.74,
+   "unit": "EGP/kWh",
+   "status": "verified",
+   "source": "EgyptERA tariff from April 2026: low voltage other users / public lighting = 274 Pt/kWh; code meters 2.74 EGP",
+   "link": "https://egyptera.org/en/TarrifApril2026.aspx",
+   "note": "Check whether the Aug-2026 update changed non-residential rates"
+  },
+  "water_price_egp_m3": {
+   "value": 4.5,
+   "unit": "EGP/m3",
+   "status": "provisional",
+   "source": "Holding Company household top tier (>30 m3), press reports 2026. ACUD price not published",
+   "link": "https://invest.albanknote.com/water-meter-price",
+   "note": "Replace with the ACUD price or the true production cost when known"
+  },
+  "nrw_baseline": {
+   "value": 0.249,
+   "unit": "share",
+   "status": "verified",
+   "source": "Egypt non-revenue water, Minister of Housing, Oct 2026",
+   "link": "https://www.masrawy.com/news/realestate-news/details/2026/10/26/3068897/",
+   "note": "As-Is"
+  },
+  "nrw_target": {
+   "value": 0.2,
+   "unit": "share",
+   "status": "verified",
+   "source": "National target for 2030, Minister of Housing, Oct 2026",
+   "link": "https://www.masrawy.com/news/realestate-news/details/2026/10/26/3068897/",
+   "note": "To-Be (first year)"
+  },
+  "nrw_stretch": {
+   "value": 0.15,
+   "unit": "share",
+   "status": "team_decision",
+   "source": "Team stretch target",
+   "link": "",
+   "note": "To-Be stretch"
+  },
+  "complaint_sla_hours": {
+   "value": 48.0,
+   "unit": "hours",
+   "status": "project_data",
+   "source": "sla_policies.csv P3 = 48 h (used for complaints, which carry no priority)",
+   "link": "",
+   "note": ""
+  },
+  "pm25_daily_threshold": {
+   "value": 37.5,
+   "unit": "ug/m3",
+   "status": "reference",
+   "source": "WHO 2021 air quality guidelines, interim target 3 (24-hour PM2.5)",
+   "link": "https://www.who.int/publications/i/item/9789240034228",
+   "note": "Exposure indicator only"
+  },
+  "complaint_handling_egp": {
+   "value": null,
+   "unit": "EGP/complaint",
+   "status": "missing",
+   "source": "Not found yet",
+   "link": "",
+   "note": "Complaint money cost is skipped while empty"
+  },
+  "value_of_time_egp_hour": {
+   "value": null,
+   "unit": "EGP/vehicle-hour",
+   "status": "missing",
+   "source": "Not found yet",
+   "link": "",
+   "note": "Traffic money cost is skipped while empty"
+  },
+  "waste_overflow_egp_hour": {
+   "value": null,
+   "unit": "EGP/bin-hour",
+   "status": "missing",
+   "source": "Not found yet",
+   "link": "",
+   "note": "Waste money cost is skipped while empty"
+  },
+  "streetlight_lamp_kw": {
+   "value": null,
+   "unit": "kW",
+   "status": "missing",
+   "source": "Not found yet",
+   "link": "",
+   "note": "Daytime-ON lamp energy is skipped while empty"
+  }
+ },
+ "derived": {
+  "leak_excess_lps": 8.149999999999999,
+  "hvac_excess_kw": 8.3,
+  "early_warning_lead_min": {
+   "water_pressure": 58.5,
+   "water_meters": 46.0,
+   "air_quality": 76.0,
+   "waste_bins": 87.0,
+   "noise": 153.5,
+   "traffic": 88.0,
+   "parking": 76.0,
+   "electricity": 106.5,
+   "bms": 136.0,
+   "cctv": 528.5
+  },
+  "egp_per_hour": {
+   "Water network": 132.02999999999997,
+   "Streetlight": null,
+   "CCTV": null,
+   "Waste bin": null,
+   "Traffic signal": null,
+   "HVAC": 22.742000000000004,
+   "Sensor": null
+  }
+ },
+ "totals": {
+  "as_is_egp_priced": 5886421.774583631,
+  "as_is_lines_priced": 5,
+  "as_is_lines": 15,
+  "to_be_egp_target": 480754.6879666665,
+  "to_be_egp_stretch": 511887.15936666646,
+  "nrw_saved_egp_target": 1129531.7618584235,
+  "nrw_saved_egp_stretch": 2147873.1221893677,
+  "saved_hours_target": 29586.38333333334,
+  "saved_hours_stretch": 32901.00833333331,
+  "work_orders_used": 1231,
+  "work_orders_open": 7
+ },
+ "as_is": [
+  {
+   "pillar": "water",
+   "metric": "Open water-network faults",
+   "quantity": 8553.183333333336,
+   "unit": "fault-hours",
+   "egp": 1129276.7955000002,
+   "basis": "fault-hours x typical leak (L/s) x 3.6 x water price"
+  },
+  {
+   "pillar": "water",
+   "metric": "Water loss at the national rate",
+   "quantity": 1020420.5304408072,
+   "unit": "m3/year",
+   "egp": 4591892.386983632,
+   "basis": "billed m3 x 24.9% / (1 - 24.9%) x water price"
+  },
+  {
+   "pillar": "buildings",
+   "metric": "Open HVAC faults",
+   "quantity": 5475.249999999999,
+   "unit": "fault-hours",
+   "egp": 124518.1355,
+   "basis": "fault-hours x typical HVAC excess (kW) x electricity price"
+  },
+  {
+   "pillar": "buildings",
+   "metric": "HVAC running in empty buildings above normal idle",
+   "quantity": 5953.799999999952,
+   "unit": "kWh",
+   "egp": 16313.41199999987,
+   "basis": "sum of (hvac_kw - building's idle median) while occupancy = 0 x electricity price"
+  },
+  {
+   "pillar": "energy",
+   "metric": "Electricity spikes caught by the early warning",
+   "quantity": 8912.79,
+   "unit": "kWh",
+   "egp": 24421.044600000005,
+   "basis": "sum of (peak - baseline) kWh of electricity warnings x electricity price (lower bound: one reading each)"
+  },
+  {
+   "pillar": "energy",
+   "metric": "Open streetlight faults",
+   "quantity": 14455.533333333327,
+   "unit": "fault-hours",
+   "egp": null,
+   "basis": "needs lamp power and repair cost"
+  },
+  {
+   "pillar": "public_safety",
+   "metric": "Dark lamp-nights (fault or off)",
+   "quantity": 10704,
+   "unit": "lamp-hours",
+   "egp": null,
+   "basis": "risk only"
+  },
+  {
+   "pillar": "public_safety",
+   "metric": "Camera downtime",
+   "quantity": 9953.783999999368,
+   "unit": "camera-hours",
+   "egp": null,
+   "basis": "risk only"
+  },
+  {
+   "pillar": "public_safety",
+   "metric": "Open CCTV faults",
+   "quantity": 11364.65000000001,
+   "unit": "fault-hours",
+   "egp": null,
+   "basis": "risk only"
+  },
+  {
+   "pillar": "waste",
+   "metric": "Bins at or above 90% full",
+   "quantity": 70071,
+   "unit": "bin-hours",
+   "egp": null,
+   "basis": "needs cleanup cost per bin-hour"
+  },
+  {
+   "pillar": "waste",
+   "metric": "Open waste-bin faults",
+   "quantity": 15548.516666666677,
+   "unit": "fault-hours",
+   "egp": null,
+   "basis": "needs cleanup cost"
+  },
+  {
+   "pillar": "mobility",
+   "metric": "Open traffic-signal faults",
+   "quantity": 5839.383333333332,
+   "unit": "fault-hours",
+   "egp": null,
+   "basis": "needs value of time"
+  },
+  {
+   "pillar": "citizen_services",
+   "metric": "Complaints closed after the 48 h SLA",
+   "quantity": 22566,
+   "unit": "complaints",
+   "egp": null,
+   "basis": "needs complaint handling cost"
+  },
+  {
+   "pillar": "citizen_services",
+   "metric": "Hours beyond the complaint SLA",
+   "quantity": 858914.8499999986,
+   "unit": "hours",
+   "egp": null,
+   "basis": "risk only"
+  },
+  {
+   "pillar": "environment",
+   "metric": "Station-days above the WHO PM2.5 interim target",
+   "quantity": 43,
+   "unit": "station-days",
+   "egp": null,
+   "basis": "exposure indicator only"
+  }
+ ],
+ "as_is_detail": {
+  "hvac": {
+   "buildings": 25,
+   "excess_kwh": 5953.799999999952,
+   "egp": 16313.41199999987
+  },
+  "bins": {
+   "bin_hours": 70071,
+   "bins": 139
+  },
+  "cameras": {
+   "camera_hours_down": 9953.783999999368,
+   "cameras": 60
+  },
+  "lamps": {
+   "fault_days": 591,
+   "off_days": 301,
+   "dark_lamp_hours": 10704
+  },
+  "complaints": {
+   "sla_hours": 48.0,
+   "closed": 44344,
+   "late": 22566,
+   "late_share": 0.5088850802814361,
+   "hours_beyond_sla": 858914.8499999986,
+   "per_pillar": {
+    "mobility": 9323,
+    "public_safety": 6801,
+    "water": 9239,
+    "environment": 5123,
+    "waste": 9223,
+    "energy": 2346,
+    "buildings": 1714,
+    "citizen_services": 1052
+   },
+   "zones_per_pillar": {
+    "mobility": 6,
+    "public_safety": 6,
+    "water": 6,
+    "environment": 6,
+    "waste": 6,
+    "energy": 6,
+    "buildings": 6,
+    "citizen_services": 6
+   },
+   "egp": null
+  },
+  "air": {
+   "threshold": 37.5,
+   "station_days": 2920,
+   "station_days_over": 43
+  }
+ },
+ "to_be": [
+  {
+   "category": "Waste bin",
+   "pillar": "waste",
+   "n_work_orders": 348,
+   "x_mean_h": 44.67964559386973,
+   "x_median_h": 28.758333333333333,
+   "p25_h": 13.974999999999998,
+   "sla_breach_pct": 11.494252873563218,
+   "open_hours_total": 15548.516666666677,
+   "early_warning_lead_min": 87.0,
+   "egp_per_open_hour": null,
+   "as_is_egp": null,
+   "y_mean_h_conservative": 42.11609195402299,
+   "saved_h_conservative": 892.1166666666669,
+   "risk_h_conservative": 1401.2833333333335,
+   "egp_conservative": null,
+   "y_mean_h_target": 26.242600574712643,
+   "saved_h_target": 6416.091666666668,
+   "risk_h_target": 10451.216666666669,
+   "egp_target": null,
+   "y_mean_h_stretch": 24.81602011494253,
+   "saved_h_stretch": 6912.541666666658,
+   "risk_h_stretch": 11564.116666666667,
+   "egp_stretch": null,
+   "break_even_egp_per_wo_target": null
+  },
+  {
+   "category": "CCTV",
+   "pillar": "public_safety",
+   "n_work_orders": 244,
+   "x_mean_h": 46.57643442622951,
+   "x_median_h": 30.25,
+   "p25_h": 13.695833333333333,
+   "sla_breach_pct": 19.262295081967213,
+   "open_hours_total": 11364.65000000001,
+   "early_warning_lead_min": 528.5,
+   "egp_per_open_hour": null,
+   "as_is_egp": null,
+   "y_mean_h_conservative": 38.099726775956285,
+   "saved_h_conservative": 2068.316666666667,
+   "risk_h_conservative": 5379.716666666668,
+   "egp_conservative": null,
+   "y_mean_h_target": 24.638592896174863,
+   "saved_h_target": 5352.833333333334,
+   "risk_h_target": 10940.166666666666,
+   "egp_target": null,
+   "y_mean_h_stretch": 17.041222677595627,
+   "saved_h_stretch": 7206.591666666672,
+   "risk_h_stretch": 15116.783333333331,
+   "egp_stretch": null,
+   "break_even_egp_per_wo_target": null
+  },
+  {
+   "category": "Water network",
+   "pillar": "water",
+   "n_work_orders": 195,
+   "x_mean_h": 43.862478632478634,
+   "x_median_h": 29.5,
+   "p25_h": 13.666666666666666,
+   "sla_breach_pct": 6.153846153846154,
+   "open_hours_total": 8553.183333333336,
+   "early_warning_lead_min": 58.5,
+   "egp_per_open_hour": 132.02999999999997,
+   "as_is_egp": 1129276.7955000002,
+   "y_mean_h_conservative": 41.80282051282051,
+   "saved_h_conservative": 401.6333333333334,
+   "risk_h_conservative": 525.0666666666667,
+   "egp_conservative": 53027.64899999998,
+   "y_mean_h_target": 27.342478632478635,
+   "saved_h_target": 3221.3999999999983,
+   "risk_h_target": 4994.583333333335,
+   "egp_target": 425321.4419999998,
+   "y_mean_h_stretch": 26.369059829059832,
+   "saved_h_stretch": 3411.2166666666626,
+   "risk_h_stretch": 5416.499999999995,
+   "egp_stretch": 450382.9364999997,
+   "break_even_egp_per_wo_target": 2181.135599999999
+  },
+  {
+   "category": "Streetlight",
+   "pillar": "energy",
+   "n_work_orders": 176,
+   "x_mean_h": 82.13371212121213,
+   "x_median_h": 52.50833333333333,
+   "p25_h": 27.53333333333333,
+   "sla_breach_pct": 30.681818181818183,
+   "open_hours_total": 14455.533333333327,
+   "early_warning_lead_min": 106.5,
+   "egp_per_open_hour": null,
+   "as_is_egp": null,
+   "y_mean_h_conservative": 64.56420454545454,
+   "saved_h_conservative": 3092.233333333334,
+   "risk_h_conservative": 5464.266666666667,
+   "egp_conservative": null,
+   "y_mean_h_target": 27.006723484848486,
+   "saved_h_target": 9702.35,
+   "risk_h_target": 14300.1,
+   "egp_target": null,
+   "y_mean_h_stretch": 25.231723484848487,
+   "saved_h_stretch": 10014.749999999987,
+   "risk_h_stretch": 14774.024999999983,
+   "egp_stretch": null,
+   "break_even_egp_per_wo_target": null
+  },
+  {
+   "category": "Traffic signal",
+   "pillar": "mobility",
+   "n_work_orders": 137,
+   "x_mean_h": 42.62323600973236,
+   "x_median_h": 27.7,
+   "p25_h": 14.158333333333333,
+   "sla_breach_pct": 10.94890510948905,
+   "open_hours_total": 5839.383333333332,
+   "early_warning_lead_min": 88.0,
+   "egp_per_open_hour": null,
+   "as_is_egp": null,
+   "y_mean_h_conservative": 40.95900243309003,
+   "saved_h_conservative": 228.0,
+   "risk_h_conservative": 492.7833333333333,
+   "egp_conservative": null,
+   "y_mean_h_target": 26.112469586374694,
+   "saved_h_target": 2261.975000000001,
+   "risk_h_target": 3887.6916666666666,
+   "egp_target": null,
+   "y_mean_h_stretch": 24.68728710462287,
+   "saved_h_stretch": 2457.2250000000004,
+   "risk_h_stretch": 4322.5583333333325,
+   "egp_stretch": null,
+   "break_even_egp_per_wo_target": null
+  },
+  {
+   "category": "HVAC",
+   "pillar": "buildings",
+   "n_work_orders": 119,
+   "x_mean_h": 46.010504201680675,
+   "x_median_h": 28.7,
+   "p25_h": 14.516666666666667,
+   "sla_breach_pct": 13.445378151260504,
+   "open_hours_total": 5475.249999999999,
+   "early_warning_lead_min": 136.0,
+   "egp_per_open_hour": 22.742000000000004,
+   "as_is_egp": 124518.1355,
+   "y_mean_h_conservative": 42.174649859943976,
+   "saved_h_conservative": 456.46666666666664,
+   "risk_h_conservative": 715.0166666666667,
+   "egp_conservative": 10380.964933333336,
+   "y_mean_h_target": 25.527450980392157,
+   "saved_h_target": 2437.483333333333,
+   "risk_h_target": 3963.6499999999996,
+   "egp_target": 55433.245966666684,
+   "y_mean_h_stretch": 23.284173669467787,
+   "saved_h_stretch": 2704.4333333333348,
+   "risk_h_stretch": 4584.9166666666715,
+   "egp_stretch": 61504.22286666674,
+   "break_even_egp_per_wo_target": 465.8255963585436
+  },
+  {
+   "category": "Sensor",
+   "pillar": "citizen_services",
+   "n_work_orders": 12,
+   "x_mean_h": 20.916666666666668,
+   "x_median_h": 19.5,
+   "p25_h": 5.25,
+   "sla_breach_pct": 0.0,
+   "open_hours_total": 251.0,
+   "early_warning_lead_min": null,
+   "egp_per_open_hour": null,
+   "as_is_egp": null,
+   "y_mean_h_conservative": 20.916666666666668,
+   "saved_h_conservative": 0.0,
+   "risk_h_conservative": 0.0,
+   "egp_conservative": null,
+   "y_mean_h_target": 4.729166666666667,
+   "saved_h_target": 194.25,
+   "risk_h_target": 388.5,
+   "egp_target": null,
+   "y_mean_h_stretch": 4.729166666666667,
+   "saved_h_stretch": 194.25,
+   "risk_h_stretch": 388.5,
+   "egp_stretch": null,
+   "break_even_egp_per_wo_target": null
+  }
+ ],
+ "water_loss": {
+  "billed_m3_year": 3077653.8890001858,
+  "price_egp_m3": 4.5,
+  "levels": [
+   {
+    "level": "As-Is",
+    "nrw": 0.249,
+    "lost_m3_year": 1020420.5304408072,
+    "lost_m3_day": 2795.672686139198,
+    "egp_year": 4591892.386983632,
+    "saved_m3_year": 0.0,
+    "saved_egp_year": 0.0
+   },
+   {
+    "level": "Target",
+    "nrw": 0.2,
+    "lost_m3_year": 769413.4722500464,
+    "lost_m3_day": 2107.982115753552,
+    "egp_year": 3462360.625125209,
+    "saved_m3_year": 251007.05819076078,
+    "saved_egp_year": 1129531.7618584235
+   },
+   {
+    "level": "Stretch",
+    "nrw": 0.15,
+    "lost_m3_year": 543115.3921765033,
+    "lost_m3_day": 1487.9873758260364,
+    "egp_year": 2444019.264794265,
+    "saved_m3_year": 477305.1382643039,
+    "saved_egp_year": 2147873.1221893677
+   }
+  ],
+  "note": "The district has no metered inflow at its border, so its loss share cannot be measured from the data. The national rate (24.9%) is applied to the billed volume of the 327 metered buildings."
+ },
+ "risk": [
+  {
+   "pillar": "energy",
+   "risk_index": 48.80509803467476,
+   "components": {
+    "severity": 0.37926136363636365,
+    "elapsed_vs_sla": 0.3068181818181818,
+    "independent_reports": 0.2516357395688083,
+    "service_criticality": 1.0,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "buildings",
+   "risk_index": 41.53593594468785,
+   "components": {
+    "severity": 0.5861344537815126,
+    "elapsed_vs_sla": 0.13445378151260504,
+    "independent_reports": 0.1838464013729486,
+    "service_criticality": 0.4444444444444444,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "water",
+   "risk_index": 67.69782753983118,
+   "components": {
+    "severity": 0.5564102564102564,
+    "elapsed_vs_sla": 0.06153846153846154,
+    "independent_reports": 0.9909900246701705,
+    "service_criticality": 1.0,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "waste",
+   "risk_index": 60.72322528267133,
+   "components": {
+    "severity": 0.5675287356321839,
+    "elapsed_vs_sla": 0.11494252873563218,
+    "independent_reports": 0.9892738388930602,
+    "service_criticality": 0.4444444444444444,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "citizen_services",
+   "risk_index": 40.320980371125174,
+   "components": {
+    "severity": 0.5,
+    "elapsed_vs_sla": 0.0,
+    "independent_reports": 0.11283921484500697,
+    "service_criticality": 0.8333333333333334,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "environment",
+   "risk_index": 38.55747290787207,
+   "components": {
+    "severity": 0.014726027397260274,
+    "independent_reports": 0.5495012335085273,
+    "service_criticality": 0.4444444444444444,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 80.0
+  },
+  {
+   "pillar": "mobility",
+   "risk_index": 62.60340632603406,
+   "components": {
+    "severity": 0.5693430656934306,
+    "elapsed_vs_sla": 0.10948905109489052,
+    "independent_reports": 1.0,
+    "service_criticality": 0.5555555555555556,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  },
+  {
+   "pillar": "public_safety",
+   "risk_index": 63.21666361879575,
+   "components": {
+    "severity": 0.6209016393442623,
+    "elapsed_vs_sla": 0.19262295081967212,
+    "independent_reports": 0.7294862168829775,
+    "service_criticality": 0.8333333333333334,
+    "verified_multi_zone": 1.0
+   },
+   "weight_used_pct": 100.0
+  }
+ ],
+ "live": {
+  "as_of": "2025-12-31T23:59",
+  "open_work_orders": [
+   {
+    "work_order_id": "WO-01225",
+    "asset_id": "BIN-124",
+    "category": "Waste bin",
+    "pillar": "waste",
+    "priority": "P3",
+    "sla_hours": 72.0,
+    "opened_at": "2025-12-27T01:38:00",
+    "status": "in_progress",
+    "open_hours": 118.35,
+    "over_sla": true,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 236.7
+   },
+   {
+    "work_order_id": "WO-01224",
+    "asset_id": "CAM-035",
+    "category": "CCTV",
+    "pillar": "public_safety",
+    "priority": "P4",
+    "sla_hours": 168.0,
+    "opened_at": "2025-12-27T01:15:00",
+    "status": "in_progress",
+    "open_hours": 118.73333333333333,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 118.73333333333333
+   },
+   {
+    "work_order_id": "WO-01232",
+    "asset_id": "BIN-143",
+    "category": "Waste bin",
+    "pillar": "waste",
+    "priority": "P3",
+    "sla_hours": 72.0,
+    "opened_at": "2025-12-30T16:58:00",
+    "status": "in_progress",
+    "open_hours": 31.016666666666666,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 62.03333333333333
+   },
+   {
+    "work_order_id": "WO-01231",
+    "asset_id": "TSG-02",
+    "category": "Traffic signal",
+    "pillar": "mobility",
+    "priority": "P4",
+    "sla_hours": 168.0,
+    "opened_at": "2025-12-30T14:20:00",
+    "status": "in_progress",
+    "open_hours": 33.65,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 33.65
+   },
+   {
+    "work_order_id": "WO-01236",
+    "asset_id": "SL-0116",
+    "category": "Streetlight",
+    "pillar": "energy",
+    "priority": "P3",
+    "sla_hours": 72.0,
+    "opened_at": "2025-12-31T08:27:00",
+    "status": "in_progress",
+    "open_hours": 15.533333333333333,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 31.066666666666666
+   },
+   {
+    "work_order_id": "WO-01238",
+    "asset_id": "SL-0142",
+    "category": "Streetlight",
+    "pillar": "energy",
+    "priority": "P3",
+    "sla_hours": 72.0,
+    "opened_at": "2025-12-31T10:45:00",
+    "status": "open",
+    "open_hours": 13.233333333333333,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 26.466666666666665
+   },
+   {
+    "work_order_id": "WO-01237",
+    "asset_id": "SL-0190",
+    "category": "Streetlight",
+    "pillar": "energy",
+    "priority": "P4",
+    "sla_hours": 168.0,
+    "opened_at": "2025-12-31T09:42:00",
+    "status": "in_progress",
+    "open_hours": 14.283333333333333,
+    "over_sla": false,
+    "egp_per_hour": null,
+    "egp_so_far": null,
+    "risk_h_so_far": 14.283333333333333
+   }
+  ],
+  "running_loss": {
+   "what": "Water loss at the national rate",
+   "m3_per_day": 2795.672686139198,
+   "egp_per_day": 12580.52708762639,
+   "egp_per_second": 0.14560795240308322
+  }
+ },
+ "limitations": [
+  "Synthetic data: the numbers show the method, not ACUD's real costs.",
+  "Water price 4.5 EGP/m3 is provisional (household top tier); the ACUD price is not published.",
+  "The district has no border inflow meter, so the national water-loss rate is applied.",
+  "Work orders are not linked to warnings; the early-warning gain uses the sensor's lead over the first complaint (association, not cause).",
+  "Typical leak (8.15 L/s) and HVAC excess (8.30 kW) are medians over all warnings and do not size each fault.",
+  "Streetlights, cameras, traffic signals, bins and complaints show hours and risk until their prices are known.",
+  "The target scenario is not yet checked against team capacity."
+ ],
+ "runtime_s": 18.1
+}

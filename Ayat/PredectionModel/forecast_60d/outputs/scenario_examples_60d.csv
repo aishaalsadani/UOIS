@@ -1,0 +1,46 @@
+category_id,pillar,normal_mean,normal_p10,normal_p90,mean,p10,p90,change,change_pct,example,zone,days
+waste_overflow,waste,1069.77,929.9,1204.0,1096.03,953.0,1234.0,26.27,2.46,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+streetlights,public_safety,1016.61,899.0,1149.1,1037.73,915.0,1174.2,21.11,2.08,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+cleanliness,waste,928.1,821.0,1043.1,946.12,836.0,1061.1,18.02,1.94,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+water_leak,water,917.73,788.9,1041.1,932.67,802.0,1058.1,14.94,1.63,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+roads,mobility,859.82,745.0,972.0,872.3,756.9,986.1,12.48,1.45,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+parking,mobility,806.4,705.0,905.0,828.47,724.0,929.0,22.07,2.74,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+noise,environment,688.79,601.0,776.0,696.97,608.0,783.1,8.18,1.19,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+water_outage,water,639.45,549.0,730.0,646.07,555.0,737.1,6.62,1.03,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+safety,public_safety,564.41,494.0,636.0,574.36,502.0,647.1,9.95,1.76,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+sewer,water,555.9,480.0,636.0,573.21,494.9,656.1,17.31,3.11,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+power_outage,energy,529.59,463.0,601.0,535.05,467.0,608.0,5.46,1.03,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+traffic_signals,mobility,443.23,382.9,504.0,448.05,387.9,510.0,4.83,1.09,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+parks,environment,418.14,370.0,472.0,432.07,382.0,487.0,13.93,3.33,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+app,citizen_services,315.49,272.9,359.0,324.12,280.0,369.0,8.63,2.73,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+hvac,buildings,312.45,273.0,353.0,320.2,280.0,362.0,7.75,2.48,"Ramadan off vs normal (ALL, 60 days)",ALL,60
+water_leak,water,289.0,219.0,365.0,289.0,219.0,365.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+waste_overflow,waste,277.21,210.0,348.0,277.21,210.0,348.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+cleanliness,waste,252.24,190.0,322.0,252.24,190.0,322.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+roads,mobility,237.06,178.0,308.1,237.06,178.0,308.1,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+water_outage,water,223.31,166.0,279.1,223.31,166.0,279.1,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+streetlights,public_safety,277.66,214.0,348.1,214.12,164.0,269.0,-63.54,-22.89,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+sewer,water,184.14,138.0,234.10000000000002,184.14,138.0,234.10000000000002,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+noise,environment,153.31,114.9,197.0,153.31,114.9,197.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+parking,mobility,150.9,111.0,193.0,150.9,111.0,193.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+power_outage,energy,144.18,106.0,184.0,144.18,106.0,184.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+safety,public_safety,136.16,102.0,173.0,136.16,102.0,173.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+traffic_signals,mobility,112.81,84.0,144.0,112.81,84.0,144.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+app,citizen_services,85.41,63.0,111.0,85.41,63.0,111.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+parks,environment,84.94,62.0,110.0,84.94,62.0,110.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+hvac,buildings,58.59,42.900000000000006,76.0,58.59,42.900000000000006,76.0,0.0,0.0,Fix: Z01 streetlights -30% from 2026-01-15,Z01,60
+parking,mobility,137.39,101.0,176.0,206.09,151.0,262.1,68.7,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+cleanliness,waste,121.72,90.0,156.0,182.58,138.0,232.0,60.86,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+waste_overflow,waste,120.65,91.0,153.0,180.97,137.0,229.0,60.32,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+roads,mobility,98.73,73.0,131.0,148.09,110.0,194.10000000000002,49.36,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+streetlights,public_safety,90.52,68.0,117.0,135.79,103.0,173.0,45.26,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+noise,environment,73.65,53.0,96.0,110.47,81.0,142.10000000000002,36.82,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+safety,public_safety,67.27,49.0,86.10000000000002,100.91,74.0,129.0,33.64,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+power_outage,energy,60.87,43.0,79.0,91.31,66.0,117.0,30.44,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+water_outage,water,54.01,38.0,71.0,81.01,59.0,104.0,27.0,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+hvac,buildings,51.36,37.0,67.0,77.04,56.0,98.0,25.68,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+water_leak,water,49.76,36.0,65.0,74.64,55.0,96.0,24.88,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+traffic_signals,mobility,48.66,35.0,64.0,72.99,53.0,95.0,24.33,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+sewer,water,43.93,31.0,58.0,65.9,47.0,87.0,21.97,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+app,citizen_services,28.16,19.0,38.0,42.23,30.0,56.0,14.08,50.0,"Population: Z04 6,000 -> 9,000",Z04,60
+parks,environment,27.96,18.0,38.0,41.94,28.0,55.10000000000002,13.98,50.0,"Population: Z04 6,000 -> 9,000",Z04,60

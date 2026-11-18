@@ -1,0 +1,12 @@
+key,value,unit,status,source,link,note
+electricity_egp_kwh,2.74,EGP/kWh,verified,"EgyptERA tariff from April 2026: low voltage other users / public lighting = 274 Pt/kWh; code meters 2.74 EGP",https://egyptera.org/en/TarrifApril2026.aspx,Check whether the Aug-2026 update changed non-residential rates
+water_price_egp_m3,4.5,EGP/m3,provisional,"Holding Company household top tier (>30 m3), press reports 2026. ACUD price not published",https://invest.albanknote.com/water-meter-price,Replace with the ACUD price or the true production cost when known
+nrw_baseline,0.249,share,verified,"Egypt non-revenue water, Minister of Housing, Oct 2026",https://www.masrawy.com/news/realestate-news/details/2026/10/26/3068897/,As-Is
+nrw_target,0.20,share,verified,"National target for 2030, Minister of Housing, Oct 2026",https://www.masrawy.com/news/realestate-news/details/2026/10/26/3068897/,To-Be (first year)
+nrw_stretch,0.15,share,team_decision,"Team stretch target",,To-Be stretch
+complaint_sla_hours,48,hours,project_data,"sla_policies.csv P3 = 48 h (used for complaints, which carry no priority)",,
+pm25_daily_threshold,37.5,ug/m3,reference,"WHO 2021 air quality guidelines, interim target 3 (24-hour PM2.5)",https://www.who.int/publications/i/item/9789240034228,Exposure indicator only
+complaint_handling_egp,,EGP/complaint,missing,"Not found yet",,Complaint money cost is skipped while empty
+value_of_time_egp_hour,,EGP/vehicle-hour,missing,"Not found yet",,Traffic money cost is skipped while empty
+waste_overflow_egp_hour,,EGP/bin-hour,missing,"Not found yet",,Waste money cost is skipped while empty
+streetlight_lamp_kw,,kW,missing,"Not found yet",,Daytime-ON lamp energy is skipped while empty

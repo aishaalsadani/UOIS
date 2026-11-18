@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+*.bak*
+Backups/
+Moamen/oasis_bert_model/bert/model.safetensors
+Datasets/main data/

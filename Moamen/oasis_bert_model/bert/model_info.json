@@ -1,0 +1,98 @@
+{
+  "model_version": "bert-1.0.0",
+  "base_model": "UBC-NLP/MARBERTv2",
+  "trained_at": "2026-10-29T12:36:57Z",
+  "max_len": 96,
+  "epochs": 5,
+  "labels": [
+    "app",
+    "cleanliness",
+    "hvac",
+    "noise",
+    "parking",
+    "parks",
+    "power_outage",
+    "roads",
+    "safety",
+    "sewer",
+    "streetlights",
+    "traffic_signals",
+    "waste_overflow",
+    "water_leak",
+    "water_outage",
+    "water_pressure_low"
+  ],
+  "input_rule": "text + ' ' + gloss(text)  (oasis_franco.py)",
+  "training_texts": 1573,
+  "validation": {
+    "macro_f1": 0.9676,
+    "accuracy": 0.9683,
+    "best_epochs": 5,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 2.6761,
+        "sec": 23,
+        "val_acc": 0.4525,
+        "val_macro_f1": 0.4394
+      },
+      {
+        "epoch": 2,
+        "loss": 1.8708,
+        "sec": 21,
+        "val_acc": 0.8416,
+        "val_macro_f1": 0.8243
+      },
+      {
+        "epoch": 3,
+        "loss": 1.0566,
+        "sec": 22,
+        "val_acc": 0.9412,
+        "val_macro_f1": 0.939
+      },
+      {
+        "epoch": 4,
+        "loss": 0.6103,
+        "sec": 23,
+        "val_acc": 0.9593,
+        "val_macro_f1": 0.9551
+      },
+      {
+        "epoch": 5,
+        "loss": 0.365,
+        "sec": 24,
+        "val_acc": 0.9683,
+        "val_macro_f1": 0.9676
+      },
+      {
+        "epoch": 6,
+        "loss": 0.2444,
+        "sec": 24,
+        "val_acc": 0.9502,
+        "val_macro_f1": 0.9533
+      },
+      {
+        "epoch": 7,
+        "loss": 0.1806,
+        "sec": 23,
+        "val_acc": 0.9548,
+        "val_macro_f1": 0.9584
+      },
+      {
+        "epoch": 8,
+        "loss": 0.154,
+        "sec": 23,
+        "val_acc": 0.9548,
+        "val_macro_f1": 0.9584
+      }
+    ]
+  },
+  "tests": {
+    "franco_probe": {
+      "english": 0.875,
+      "franco": 0.8333
+    }
+  },
+  "transformers_version": "5.21.1",
+  "torch_version": "2.11.0+cu130"
+}

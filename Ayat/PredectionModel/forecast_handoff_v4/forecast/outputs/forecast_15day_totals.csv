@@ -1,0 +1,17 @@
+category_id,pillar,forecast_15d,low_80,high_80
+waste_overflow,waste,269,248,290
+streetlights,public_safety,257,237,278
+water_leak,water,230,211,250
+cleanliness,waste,222,203,241
+parking,mobility,204,186,223
+roads,mobility,204,186,222
+noise,environment,172,156,189
+water_outage,water,154,138,170
+safety,public_safety,143,128,158
+sewer,water,136,121,151
+power_outage,energy,131,116,145
+parks,environment,108,95,122
+traffic_signals,mobility,108,95,121
+app,citizen_services,81,69,92
+hvac,buildings,76,65,88
+TOTAL,all,2496,2432,2560

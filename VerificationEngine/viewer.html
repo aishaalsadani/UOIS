@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التحقق من الشكاوى — نموذج أولي</title>
+<style>
+:root {
+  --bg: #f4f5f7; --surface: #ffffff; --ink: #1c2430; --muted: #5b6676; --line: #e1e5eb; --soft: #f7f8fa;
+  --brand: #1f3a5f; --brand-soft: #e8eef6;
+  --st-insufficient: #6b7280; --st-insufficient-bg: #f1f2f4;
+  --st-context: #8a5a00; --st-context-bg: #fdf3e1;
+  --st-supported: #166534; --st-supported-bg: #e7f5ec;
+  --st-inconsistent: #5b3c8f; --st-inconsistent-bg: #efe9f8;
+  --st-conflicting: #a3410f; --st-conflicting-bg: #fbeadf;
+  --safety-prompt: #b42318; --safety-prompt-bg: #fdecea;
+  --safety-elevated: #9a5b00; --safety-elevated-bg: #fff4e0;
+  --warn-bg: #fff7e6; --warn-line: #f0c36d;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif; font-size: 14px; line-height: 1.6; }
+code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 12.5px; overflow-wrap: anywhere; }
+bdi { unicode-bidi: isolate; }
+header.topbar { background: var(--brand); color: #fff; padding: 14px 24px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 19px; font-weight: 600; }
+header .sub { font-size: 12.5px; opacity: .85; }
+.modes { display: flex; gap: 6px; background: rgba(255,255,255,.12); padding: 4px; border-radius: 8px; flex-wrap: wrap; }
+.modes button { border: 0; background: transparent; color: #fff; padding: 7px 14px; border-radius: 6px; cursor: pointer; font: inherit; }
+.modes button.active { background: #fff; color: var(--brand); font-weight: 600; }
+.banner { padding: 9px 24px; font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.banner.mode-a { background: #eef2f7; color: var(--brand); }
+.banner.mode-b { background: #fff1e6; color: #8a3b00; }
+.layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 18px; padding: 18px 24px 40px; max-width: 1500px; margin: 0 auto; }
+aside.sidebar { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px;
+  align-self: start; position: sticky; top: 12px; max-height: calc(100vh - 24px); display: flex; flex-direction: column; min-width: 0; }
+.picker-toggle { display: none; width: 100%; border: 1px solid var(--brand); background: var(--brand-soft); color: var(--brand);
+  border-radius: 8px; padding: 8px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 8px; }
+.picker-body { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.sidebar input, .sidebar select { width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; font: inherit; background: #fff; }
+.filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.filters label { font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 2px; }
+.seg { display: flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; margin-top: 10px; }
+.seg button { flex: 1; border: 0; background: #fff; padding: 6px; cursor: pointer; font: inherit; font-size: 12.5px; }
+.seg button.active { background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+.countrow { display: flex; justify-content: space-between; align-items: center; margin: 4px 0 8px; }
+.count { font-size: 12px; color: var(--muted); }
+.linkbtn { border: 0; background: none; color: var(--brand); cursor: pointer; font: inherit; font-size: 12px; text-decoration: underline; padding: 0; }
+.list { overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 6px; padding-left: 2px; min-height: 120px; }
+.item { text-align: right; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; font: inherit; min-width: 0; }
+.item:hover { border-color: #b9c4d3; }
+.item.selected { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand-soft); }
+.item .row1 { display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap; }
+.item .id { font-weight: 600; }
+.item .txt { color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; min-width: 0; }
+.card h2 { margin: 0 0 10px; font-size: 15px; color: var(--brand); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.card h3 { margin: 12px 0 6px; font-size: 13.5px; }
+details.card > summary { cursor: pointer; list-style: none; }
+details.card > summary h2 { margin: 0; }
+details.card > summary::before { content: "▸"; color: var(--brand); float: right; margin-left: 8px; }
+details.card[open] > summary::before { content: "▾"; }
+details.card[open] > summary { margin-bottom: 10px; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.tile { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; background: var(--soft); min-width: 0; }
+.tile .label { font-size: 11.5px; color: var(--muted); margin-bottom: 4px; }
+.tile .big { font-size: 15px; font-weight: 600; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.kv { display: grid; grid-template-columns: minmax(80px, max-content) minmax(0, 1fr); gap: 4px 14px; font-size: 13px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; overflow-wrap: anywhere; min-width: 0; }
+.complaint-text { background: var(--soft); border-right: 3px solid var(--brand); padding: 10px 12px; border-radius: 6px; font-size: 15px; margin: 10px 0; overflow-wrap: anywhere; }
+.chip { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; max-width: 100%; }
+.chip.small { font-size: 11px; padding: 1px 7px; font-weight: 500; }
+.st-INSUFFICIENT_EVIDENCE { color: var(--st-insufficient); background: var(--st-insufficient-bg); }
+.st-CONTEXT_ONLY { color: var(--st-context); background: var(--st-context-bg); }
+.st-INDEPENDENTLY_SUPPORTED { color: var(--st-supported); background: var(--st-supported-bg); }
+.st-INCONSISTENT_WITH_RELIABLE_MEASUREMENT { color: var(--st-inconsistent); background: var(--st-inconsistent-bg); }
+.st-CONFLICTING_EVIDENCE { color: var(--st-conflicting); background: var(--st-conflicting-bg); }
+.st-NONE, .st-null { color: var(--muted); background: var(--soft); }
+.sf-PROMPT_SAFETY_REVIEW { color: var(--safety-prompt); background: var(--safety-prompt-bg); }
+.sf-ELEVATED_HUMAN_REVIEW { color: var(--safety-elevated); background: var(--safety-elevated-bg); }
+.sf-NONE { color: var(--muted); background: var(--soft); }
+.neutral { color: var(--muted); background: var(--soft); }
+.status-big { font-size: 17px; padding: 6px 14px; }
+.lead { font-size: 14.5px; margin: 10px 0 4px; }
+.note { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.warn { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 7px; padding: 7px 10px; font-size: 12.5px; margin: 6px 0; overflow-wrap: anywhere; }
+.danger { background: var(--safety-prompt-bg); border: 1px solid #f3b4ad; border-radius: 7px; padding: 8px 10px; font-size: 13px; overflow-wrap: anywhere; }
+.notauth { background: #eef2f7; border: 1px dashed #9fb0c8; border-radius: 7px; padding: 7px 10px; font-size: 12.5px; margin-top: 10px; }
+ul.plain { margin: 6px 0; padding-right: 18px; }
+ul.plain li { margin: 2px 0; }
+.interp-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.interp-tabs button { border: 1px solid var(--line); background: #fff; border-radius: 7px; padding: 5px 10px; cursor: pointer; font: inherit; font-size: 12.5px; }
+.interp-tabs button.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; flex-wrap: wrap; }
+.tabs button { border: 0; background: none; padding: 8px 12px; cursor: pointer; font: inherit; color: var(--muted); border-bottom: 2px solid transparent; }
+.tabs button.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+.tabs .n { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 9px; background: var(--soft); font-size: 11px; margin-right: 4px; }
+.ev { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; min-width: 0; }
+.ev.dup { opacity: .78; }
+.ev .head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ev .title { font-weight: 600; overflow-wrap: anywhere; }
+.ev .meta { display: grid; grid-template-columns: minmax(80px, max-content) minmax(0, 1fr); gap: 2px 12px; font-size: 12.5px; margin-top: 6px; }
+.ev .meta dt { color: var(--muted); }
+.ev .meta dd { margin: 0; overflow-wrap: anywhere; min-width: 0; }
+.reasons { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.reasons span { background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; font-size: 11.5px; overflow-wrap: anywhere; }
+details summary { cursor: pointer; color: var(--muted); font-size: 12px; margin-top: 4px; }
+.empty { color: var(--muted); font-size: 13px; padding: 10px; background: var(--soft); border-radius: 7px; }
+.timeline-wrap { overflow-x: auto; direction: ltr; max-width: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 8px; direction: rtl; }
+.legend i { display: inline-block; width: 18px; height: 8px; margin-left: 5px; vertical-align: middle; border-radius: 2px; }
+fieldset.preview { border: 1px dashed #aab4c3; border-radius: 8px; padding: 12px; opacity: .75; min-width: 0; }
+fieldset.preview label { display: block; font-size: 12.5px; color: var(--muted); margin: 6px 0 2px; }
+fieldset.preview select, fieldset.preview input, fieldset.preview textarea { width: 100%; padding: 6px; border: 1px solid var(--line); border-radius: 6px; font: inherit; background: #f3f4f6; }
+.preview-tag { display: inline-block; background: #374151; color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 12px; }
+.error { margin: 40px auto; max-width: 640px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+@media (max-width: 1200px) { .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1050px) {
+  .layout { grid-template-columns: minmax(0, 1fr); padding: 12px 12px 32px; gap: 12px; }
+  header.topbar { padding: 12px 14px; }
+  .banner { padding: 8px 14px; }
+  aside.sidebar { position: static; max-height: none; }
+  .picker-toggle { display: block; }
+  aside.sidebar.collapsed .picker-body { display: none; }
+  .list { max-height: 300px; }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .summary-grid, .filters { grid-template-columns: minmax(0, 1fr); }
+  .card { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>التحقق من الشكاوى — Complaint Verification</h1>
+    <div class="sub">نموذج أولي للعرض فقط (read-only) — تقييم بقواعد صريحة، مش موديل ML ومفيش نسبة ثقة</div>
+  </div>
+  <div class="modes" role="tablist" aria-label="Data mode">
+    <button id="modeA" class="active" role="tab">البيانات التاريخية (Mode A)</button>
+    <button id="modeB" role="tab">سيناريوهات تجريبية (Mode B)</button>
+  </div>
+</header>
+<div id="banner" class="banner mode-a"></div>
+<div class="layout" id="layout">
+  <aside class="sidebar collapsed" id="sidebar">
+    <input id="search" type="search" placeholder="بحث برقم الشكوى أو النص أو المنطقة" aria-label="Search">
+    <button class="picker-toggle" id="pickerToggle" aria-expanded="false" aria-controls="pickerBody"></button>
+    <div class="picker-body" id="pickerBody">
+      <div id="timeSeg" class="seg">
+        <button data-time="at_creation" class="active">وقت تقديم الشكوى</button>
+        <button data-time="later_reassessment">بعد 24 ساعة</button>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="countrow"><span class="count" id="count"></span><button class="linkbtn" id="clearFilters">مسح البحث والفلاتر</button></div>
+      <div class="list" id="list"></div>
+    </div>
+  </aside>
+  <main id="main"></main>
+</div>
+<script src="viewer_logic.js"></script>
+<script src="data/presentation_data.js"></script>
+<script>
+"use strict";
+const DATA = window.CV_PRESENTATION_DATA;
+const L = window.CVLogic;
+const ZONE = (DATA && DATA.display_timezone) || "Africa/Cairo";
+const state = { mode: "A", time: "at_creation", selected: null, interp: 0, tab: "contextual", filters: L.emptyFilters(), search: "" };
+
+function el(tag, attrs, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") node.className = v;
+    else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
+    else node.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of children.flat(Infinity)) {
+    if (c === null || c === undefined || c === false) continue;
+    node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+  return node;
+}
+const svgNS = "http://www.w3.org/2000/svg";
+function s(tag, attrs, ...children) {
+  const node = document.createElementNS(svgNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) if (v !== null && v !== undefined) node.setAttribute(k, v);
+  for (const c of children) node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return node;
+}
+const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: ZONE, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+function cairo(iso) {
+  if (!iso) return "—";
+  const p = Object.fromEntries(fmt.formatToParts(new Date(iso)).map(x => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}`;
+}
+// Dates are isolated left-to-right so the RTL layout never reorders them.
+function ltr(text) { return el("bdi", { dir: "ltr" }, text === null || text === undefined || text === "" ? "—" : text); }
+function statusChip(code, label, big) {
+  return el("span", { class: `chip st-${code || "NONE"}${big ? " status-big" : ""}` }, label || "مفيش حالة إجمالية");
+}
+function dash(v) { return v === null || v === undefined || v === "" ? "—" : v; }
+const isNarrow = () => window.matchMedia("(max-width: 1050px)").matches;
+
+// ------------------------------------------------------------------ records and selection
+function records() { return !DATA ? [] : state.mode === "A" ? DATA.mode_a.records : DATA.mode_b.scenarios; }
+const idOf = r => L.recordId(r, state.mode);
+const assessmentOf = r => L.assessmentOf(r, state.mode, state.time);
+function visible() { return L.filterRecords(records(), state.mode, state.time, state.filters, state.search); }
+
+/* Single entry point after any change: the selection is re-resolved against the filtered list,
+   so the details panel can never show a record the active filters exclude. */
+function refresh(opts) {
+  const items = visible();
+  const before = state.selected;
+  state.selected = L.resolveSelection(items.map(idOf), state.selected, state.mode === "A" ? DATA.default_complaint : null);
+  if (state.selected !== before) { state.interp = 0; state.tab = defaultTab(); }
+  if (!opts || opts.filters !== false) renderFilters();
+  renderList(items);
+  renderMain();
+}
+
+function options(values, labels) {
+  return [el("option", { value: "" }, "الكل"), ...[...new Set(values)].filter(v => v !== undefined).sort()
+    .map(v => el("option", { value: v }, labels && labels[v] ? labels[v] : (v === "null" ? "مفيش حالة" : v)))];
+}
+function renderFilters() {
+  const box = document.getElementById("filters");
+  box.replaceChildren();
+  const all = records();
+  const statusLabels = {}, actionLabels = {}, safetyLabels = {};
+  all.forEach(r => { const a = assessmentOf(r); statusLabels[String(a.status)] = a.status_ar;
+    if (a.recommendation) { actionLabels[a.recommendation.primary_action] = a.recommendation.primary_action_ar;
+      safetyLabels[a.recommendation.safety.level] = a.recommendation.safety.title_ar; } });
+  const defs = [
+    ["category", "التصنيف", all.map(r => L.categoryOf(r, state.mode))],
+    ["status", "الحالة", all.map(r => String(assessmentOf(r).status)), statusLabels],
+    ["group", state.mode === "A" ? "مجموعة العينة" : "نوع السيناريو", all.map(r => L.groupOf(r, state.mode))],
+  ];
+  if (state.mode === "A") {
+    defs.push(["safety", "السلامة", all.map(r => assessmentOf(r).recommendation.safety.level), safetyLabels]);
+    defs.push(["action", "الإجراء المقترح", all.map(r => assessmentOf(r).recommendation.primary_action), actionLabels]);
+  }
+  for (const [key, label, values, labels] of defs) {
+    const sel = el("select", { "aria-label": label, "data-filter": key,
+      onchange: e => { state.filters[key] = e.target.value; refresh({ filters: false }); } }, ...options(values, labels));
+    sel.value = state.filters[key];
+    box.append(el("div", {}, el("label", {}, label), sel));
+  }
+}
+
+function renderList(items) {
+  const list = document.getElementById("list");
+  document.getElementById("count").textContent = `${items.length} من ${records().length}`;
+  const current = records().find(x => idOf(x) === state.selected);
+  document.getElementById("pickerToggle").textContent = current
+    ? `الشكوى المعروضة: ${idOf(current)} — تغيير (${items.length} نتيجة)` : `اختيار شكوى (${items.length} نتيجة)`;
+  list.replaceChildren(...items.map(r => {
+    const a = assessmentOf(r);
+    const rec = a.recommendation;
+    return el("button", { class: `item${idOf(r) === state.selected ? " selected" : ""}`, "data-id": idOf(r), onclick: () => select(idOf(r)) },
+      el("div", { class: "row1" }, el("span", { class: "id mono" }, idOf(r)), statusChip(a.status, a.status_ar)),
+      el("div", { class: "row1" },
+        el("span", { class: "note" }, state.mode === "A" ? [`${r.category_ar} · ${r.zone_reported} · `, ltr(r.created_local)] : r.request_id),
+        rec && rec.safety.level !== "NONE" ? el("span", { class: `chip small sf-${rec.safety.level}` }, rec.safety.title_ar) : null),
+      el("div", { class: "txt" }, state.mode === "A" ? r.text : r.purpose));
+  }));
+  if (!items.length) list.append(el("div", { class: "empty" }, "مفيش نتايج بالفلاتر دي."));
+}
+
+function setPicker(open) {
+  const side = document.getElementById("sidebar");
+  side.classList.toggle("collapsed", !open);
+  document.getElementById("pickerToggle").setAttribute("aria-expanded", String(open));
+}
+function select(id) {
+  state.selected = id; state.interp = 0; state.tab = defaultTab();
+  renderList(visible()); renderMain();
+  if (isNarrow()) { setPicker(false); document.getElementById("main").scrollIntoView({ behavior: "smooth", block: "start" }); }
+}
+// Open the first evidence group that has items, in order of decisiveness.
+function defaultTab() {
+  const r = records().find(x => idOf(x) === state.selected);
+  const i = r && assessmentOf(r).interpretations[state.interp];
+  if (!i || !i.valid) return "contextual";
+  return ["supporting", "contradicting", "contextual"].find(k => i.groups[k].length) || (i.missing.length ? "missing" : "excluded");
+}
+
+// ------------------------------------------------------------------ executive summary
+function summaryCard(r, a) {
+  const rec = a.recommendation;
+  const tiles = [
+    el("div", { class: "tile" }, el("div", { class: "label" }, "التحقق"), statusChip(a.status, a.status_ar),
+      el("div", { class: "note", style: "margin-top:4px" }, a.status_text_ar)),
+  ];
+  if (rec) {
+    tiles.push(el("div", { class: "tile" }, el("div", { class: "label" }, "مراجعة السلامة (منفصلة عن التحقق)"),
+      el("span", { class: `chip sf-${rec.safety.level}` }, rec.safety.title_ar), el("div", { class: "note", style: "margin-top:4px" }, rec.safety.text_ar)));
+    tiles.push(el("div", { class: "tile" }, el("div", { class: "label" }, "الإجراء المقترح — اقتراح مش تفويض"),
+      el("div", { class: "big" }, rec.primary_action_ar),
+      rec.records_to_review.length ? el("div", { class: "note" }, "مراجعة: ", el("span", { class: "mono" }, rec.records_to_review.join(", "))) : null));
+  } else {
+    tiles.push(el("div", { class: "tile" }, el("div", { class: "label" }, "المتوقع مسبقًا (pre-registered)"),
+      statusChip(r.expected_status, r.expected_status ? r.expected_status : "مفيش حالة"), el("div", { class: "note" }, "النتيجة مطابقة للمتوقع.")));
+    tiles.push(el("div", { class: "tile" }, el("div", { class: "label" }, "الإجراء والسلامة"), el("div", { class: "note" }, DATA.mode_b.recommendation_note_ar)));
+  }
+  tiles.push(el("div", { class: "tile" }, el("div", { class: "label" }, "أهم القيود"),
+    (a.key_limitations_ar || []).length ? el("ul", { class: "plain note" }, ...a.key_limitations_ar.map(t => el("li", {}, t))) : el("div", { class: "note" }, "—")));
+  return el("section", { class: "card", id: "summary" },
+    el("h2", {}, "الخلاصة", el("span", { class: "chip small neutral mono" }, idOf(r)),
+      state.mode === "A" ? el("span", { class: "note" }, ["التقييم عند: ", ltr(a.as_of_local), " (القاهرة)"]) : null),
+    el("div", { class: "summary-grid" }, ...tiles));
+}
+
+// ------------------------------------------------------------------ detail panels
+function complaintCard(r) {
+  if (state.mode === "B") {
+    return el("section", { class: "card" },
+      el("h2", {}, "السيناريو التجريبي", el("span", { class: "chip small neutral mono" }, r.scenario_id)),
+      el("div", { class: "complaint-text" }, r.purpose),
+      el("dl", { class: "kv" },
+        el("dt", {}, "رقم البلاغ التجريبي"), el("dd", {}, el("span", { class: "mono" }, r.request_id)),
+        el("dt", {}, "التصنيف"), el("dd", {}, (r.category_ids || []).join(" / ")),
+        el("dt", {}, "نطاق البلاغ"), el("dd", {}, dash(r.reported_scope)),
+        el("dt", {}, "بداية المشكلة (موثقة)"), el("dd", {}, r.reported_onset_utc ? [ltr(cairo(r.reported_onset_utc)), " (القاهرة)"] : "غير موثقة"),
+        el("dt", {}, "وقت التقديم"), el("dd", {}, r.time_interpretations.map(t => [`${t.label}: `, ltr(t.created_local), " (القاهرة)  "])),
+        el("dt", {}, "روابط موثقة (داخل السيناريو)"), el("dd", {}, r.verified_links.length ?
+          r.verified_links.map(l => `${l.entity_ref} (${l.relation}, ${l.status})`).join(" · ") : "لا يوجد")),
+      el("div", { class: "warn" }, "سيناريو synthetic متحكم فيه للعرض — مش بيانات تاريخية ومش بيانات ACUD."));
+  }
+  const multiTime = r.time_interpretations.length > 1, multiCat = r.category_interpretations.length > 1;
+  return el("section", { class: "card" },
+    el("h2", {}, "تفاصيل الشكوى"),
+    el("div", { class: "complaint-text" }, r.text),
+    el("dl", { class: "kv" },
+      el("dt", {}, "التصنيف"), el("dd", {}, `${r.category_ar} (${r.category_id})`, multiCat ? el("span", { class: "chip small st-CONTEXT_ONLY", style: "margin-right:6px" }, "تصنيف ملتبس") : null),
+      el("dt", {}, "المنطقة المُبلّغ عنها"), el("dd", {}, `${dash(r.zone_reported)} — غير متحقق منها`),
+      el("dt", {}, "وقت التقديم"), el("dd", {}, ltr(r.created_local), " (القاهرة) · ", el("span", { class: "mono" }, ltr(r.created_utc ? `${r.created_utc} UTC` : null)),
+        multiTime ? el("span", { class: "chip small st-CONTEXT_ONLY", style: "margin-right:6px" }, "توقيت ملتبس") : null),
+      el("dt", {}, "القناة"), el("dd", {}, dash(r.channel)),
+      el("dt", {}, "مجموعة العينة"), el("dd", {}, el("span", { class: "mono" }, dash(r.stratum))),
+      el("dt", {}, "الحالة الإدارية"), el("dd", {}, `${dash(r.administrative_status_display_only)} — للعرض بس، الإغلاق الإداري مش تحقق`)),
+    (multiTime || multiCat) ? el("div", { class: "warn" },
+      multiTime ? ["تفسيرات الوقت (القاهرة): ", ...r.time_interpretations.map(t => [`${t.label} = `, ltr(t.created_local), " · "]), " "] : "",
+      multiCat ? `تفسيرات التصنيف: ${r.category_interpretations.map(c => `${c.label} = ${c.category_id}`).join(" · ")}.` : "") : null,
+    r.adapter_notes && r.adapter_notes.length ? el("div", { class: "note" }, "ملاحظات: ", r.adapter_notes.join(" · ")) : null);
+}
+
+function assessmentCard(r, a) {
+  const interps = a.interpretations;
+  return el("section", { class: "card" },
+    el("h2", {}, "تقييم التحقق (Verification Assessment)"),
+    statusChip(a.status, a.status_ar, true),
+    el("p", { class: "lead" }, a.status_text_ar),
+    el("dl", { class: "kv" },
+      el("dt", {}, "وقت التقييم"), el("dd", {}, ltr(a.as_of_local), " (القاهرة)"),
+      el("dt", {}, "التفسيرات"), el("dd", {}, a.resolution_ar),
+      ...interps.flatMap(i => [el("dt", {}, `${i.time_label} / ${i.category_label}`),
+        el("dd", {}, i.valid ? statusChip(i.status, i.status_ar) : el("span", { class: "chip small neutral" }, `غير صالح: ${i.invalid_reason}`),
+          i.valid ? el("span", { class: "note", style: "margin-right:8px" }, `أنواع الأدلة المتوقعة اللي اتفحصت: ${i.coverage_checked} من ${i.coverage_expected}`) : null)])),
+    el("h3", {}, "ليه الحالة دي؟"),
+    el("ul", { class: "plain" }, ...a.ai_explanation_ar.map(t => el("li", {}, t))),
+    el("details", {}, el("summary", {}, "Engine explanation (English)"), el("div", { class: "note mono" }, a.explanation_en)),
+    el("div", { class: "note", style: "margin-top:8px" }, "مفيش نسبة ثقة: الحالة بتوصف الأدلة المتاحة، مش صدق المواطن."));
+}
+
+function recommendationCard(r, a) {
+  if (state.mode === "B") {
+    return el("section", { class: "card" }, el("h2", {}, "الإجراء المقترح ومراجعة السلامة"), el("div", { class: "empty" }, DATA.mode_b.recommendation_note_ar));
+  }
+  const rec = a.recommendation, safety = rec.safety;
+  return el("section", { class: "card" },
+    el("h2", {}, "مراجعة السلامة"),
+    el("span", { class: `chip sf-${safety.level}` }, safety.title_ar),
+    el("p", { class: "note" }, safety.text_ar),
+    safety.level !== "NONE" ? el("div", { class: safety.level === "PROMPT_SAFETY_REVIEW" ? "danger" : "warn" },
+      "نص الشكوى كما هو: ", el("strong", {}, r.text), el("br"),
+      "السبب: ", safety.reason_codes.map(c => c.replace(/^hazard_indicator:/, "مؤشر خطر: ").replace(/^sensitive_location:/, "مكان حساس: ")).join(" · ")) : null,
+    el("div", { class: "note" }, "مراجعة السلامة مستقلة عن حالة التحقق، وبتفضل متاحة حتى لو الأدلة ناقصة."),
+    el("h2", { style: "margin-top:14px" }, "الإجراء المقترح (Recommended Action)"),
+    el("div", {}, el("strong", {}, rec.primary_action_ar), " ", el("span", { class: "note mono" }, rec.primary_action)),
+    rec.secondary_actions_ar.length ? el("div", { class: "note" }, "بعده ممكن: ", rec.secondary_actions_ar.join(" · ")) : null,
+    el("div", { class: "note" }, `أولوية المراجعة: ${rec.review_priority}`),
+    el("h3", {}, "الأسباب"),
+    el("div", { class: "reasons" }, ...rec.reasons_ar.map((t, i) => el("span", { title: rec.reason_codes[i] }, t))),
+    rec.policy_flags.length ? el("div", { class: "warn" }, "مبني على سياسة synthetic مؤقتة: ", el("span", { class: "mono" }, rec.policy_flags.join(", "))) : null,
+    el("details", {}, el("summary", {}, "كل القيود (limitations)"), el("ul", { class: "plain mono" }, ...rec.limitations.map(l => el("li", {}, l)))),
+    el("div", { class: "notauth" }, "التوصية دي اقتراح بس: ما بتأذنش بإصلاح ولا صرف ولا إرسال فريق ولا قفل الشكوى، ومحتاجة قرار بشري. ",
+      `(executed = ${rec.executed})`));
+}
+
+const TABS = [["supporting", "دليل داعم موثّق"], ["contextual", "سياق"], ["contradicting", "دليل مناقض"],
+  ["missing", "أدلة ناقصة"], ["excluded", "مستبعد / غير متاح"]];
+const STATE_CHIP = { later: "ظهر بعد التقييم", uncertain: "إتاحة غير مؤكدة", unknown: "إتاحة مجهولة" };
+function evidenceItem(e) {
+  const t = e.time;
+  const basisWarn = t.basis === "reconstructed_replay" || t.basis === "assumed_from_event_time" || t.basis === "unknown";
+  const avail = L.availabilityState(e);
+  return el("div", { class: `ev${e.counted ? "" : " dup"}`, "data-availability": avail || null },
+    el("div", { class: "head" },
+      el("span", { class: "title" }, `${e.evidence_type_ar} — `, el("span", { class: "mono" }, dash(e.source_record_id))),
+      el("span", {},
+        el("span", { class: `chip small ${e.role === "context" || e.role === "not_detected" ? "st-CONTEXT_ONLY" : e.role === "supports" ? "st-INDEPENDENTLY_SUPPORTED" : e.role === "contradicts" ? "st-INCONSISTENT_WITH_RELIABLE_MEASUREMENT" : "neutral"}` },
+          avail ? STATE_CHIP[avail] : e.role_ar),
+        " ",
+        e.counted ? null : el("span", { class: "chip small neutral" }, e.duplicate_of ? `نفس المصدر/الحدث زي ${e.duplicate_of} — مش محسوب` : "مش محسوب"))),
+    avail ? el("div", { class: "note" }, e.availability_state_ar || STATE_CHIP[avail]) : null,
+    e.coincidence && e.coincidence.prominent ? el("div", { class: "warn" },
+      `⚠ ${e.coincidence.text_ar} (تحليل ±${e.coincidence.window_hours} ساعات مقابل baseline مُزاح زمنيًا؛ نسبة الملاحظ للـbaseline ≈ ${dash(e.coincidence.ratio_observed_to_baseline)}). ده سياق مش تأكيد.`) : null,
+    el("dl", { class: "meta" },
+      el("dt", {}, "المصدر"), el("dd", {}, el("span", { class: "mono" }, dash(e.source_dataset)), ` · ${e.record_origin_ar}`),
+      el("dt", {}, "وقت الملاحظة"), el("dd", {}, t.first_observed_utc ? [ltr(cairo(t.first_observed_utc)), " (القاهرة)"] : "—",
+        t.observation_count > 1 ? [` · ${t.observation_count} ملاحظة لحد `, ltr(cairo(t.last_observed_utc))] : ""),
+      el("dt", {}, "وقت الإتاحة"), el("dd", {}, t.availability_earliest_utc ?
+        (t.availability_earliest_utc === t.availability_latest_utc ? ltr(cairo(t.availability_latest_utc))
+          : ["بين ", ltr(cairo(t.availability_earliest_utc)), " و ", ltr(cairo(t.availability_latest_utc))]) : "مجهول",
+        " ", el("span", { class: `chip small ${basisWarn ? "st-CONTEXT_ONLY" : "neutral"}` }, t.basis_ar)),
+      el("dt", {}, "الربط بمكان الشكوى"), el("dd", {}, e.linkage.text_ar)),
+    el("div", { class: "reasons" }, ...e.reasons_ar.map((r, i) => el("span", { title: e.reason_codes[i] }, r))),
+    el("details", {}, el("summary", {}, "المصدر التقني والقيود"),
+      e.note ? el("div", { class: "note" }, e.note) : null,
+      el("div", { class: "note mono" }, `lineage: ${dash(e.root_lineage)} · id: ${e.evidence_id}`,
+        e.temporal_relevance ? ` · temporal_relevance: ${e.temporal_relevance}` : "")));
+}
+function list(items, emptyText) { return items.length ? items.map(evidenceItem) : [el("div", { class: "empty" }, emptyText)]; }
+function evidenceCard(a) {
+  const interps = a.interpretations;
+  const i = interps[Math.min(state.interp, interps.length - 1)];
+  const card = el("section", { class: "card", id: "evidence" }, el("h2", {}, "الأدلة (Evidence)"));
+  if (interps.length > 1) {
+    card.append(el("div", { class: "interp-tabs" }, ...interps.map((x, k) => el("button", {
+      class: k === state.interp ? "active" : "", onclick: () => { state.interp = k; state.tab = defaultTab(); renderMain(); } },
+      `${x.time_label} / ${x.category_label}: ${x.valid ? x.status_ar : "غير صالح"}`))));
+  }
+  if (!i || !i.valid) { card.append(el("div", { class: "empty" }, `التفسير ده ما ينفعش يتقيّم: ${i ? i.invalid_reason : ""}`)); return card; }
+  const unavailable = i.groups.unavailable;
+  const byState = k => unavailable.filter(e => L.availabilityState(e) === k);
+  const counts = { supporting: i.groups.supporting.length, contextual: i.groups.contextual.length,
+    contradicting: i.groups.contradicting.length, missing: i.missing.length, excluded: i.groups.excluded.length + unavailable.length };
+  card.append(el("div", { class: "tabs" }, ...TABS.map(([k, label]) => el("button", {
+    class: state.tab === k ? "active" : "", "data-tab": k, onclick: () => { state.tab = k; renderMain(); } }, label, el("span", { class: "n" }, counts[k])))));
+  const body = el("div", {});
+  if (state.tab === "missing") {
+    body.append(...(i.missing.length ? i.missing.map(m => el("div", { class: "ev" },
+      el("div", { class: "title" }, m.type_ar, " ", el("span", { class: "note mono" }, m.type)),
+      el("div", { class: "note" }, "السبب: ", m.reason_ar, " ", el("span", { class: "mono" }, `(${m.reason})`))))
+      : [el("div", { class: "empty" }, "مفيش أنواع أدلة متوقعة ناقصة.")]));
+  } else if (state.tab === "excluded") {
+    body.append(
+      el("h3", {}, `مستبعد أو غير موثوق (${i.groups.excluded.length})`), ...list(i.groups.excluded, "لا يوجد."),
+      el("h3", { "data-section": "uncertain" }, `إتاحته وقت التقييم مش مؤكدة (${byState("uncertain").length})`),
+      el("div", { class: "note" }, "السجلات دي ممكن كانت متاحة وقت التقييم وممكن لأ؛ عشان كده ما اتحسبتش. ده مش نفس \"ظهر بعدين\"."),
+      ...list(byState("uncertain"), "لا يوجد."),
+      el("h3", { "data-section": "unknown" }, `وقت إتاحته مجهول (${byState("unknown").length})`), ...list(byState("unknown"), "لا يوجد."),
+      el("h3", { "data-section": "later" }, `ظهر بعد وقت التقييم — أدلة لاحقة (${byState("later").length})`),
+      el("div", { class: "note" }, "السجلات دي اتأكد إنها اتاحت بعد وقت التقييم، فما أثرتش على الحالة. بتظهر للشفافية بس."),
+      ...list(byState("later"), "لا يوجد."));
+  } else {
+    const items = i.groups[state.tab];
+    const emptyText = {
+      supporting: state.mode === "A" ? "مفيش دليل داعم موثّق. البيانات التاريخية مفيهاش أي ربط موثّق بمكان الشكوى، فمفيش سجل يقدر يكون دليل داعم." : "لا يوجد دليل داعم في السيناريو ده.",
+      contextual: "مفيش سياق متاح وقت التقييم.",
+      contradicting: state.mode === "A" ? "مفيش دليل مناقض. مفيش قياس موثّق لنفس مكان الشكوى — وغياب الدليل مش نفي." : "لا يوجد دليل مناقض في السيناريو ده.",
+    }[state.tab];
+    if (state.tab === "contextual" && items.length) body.append(el("div", { class: "warn" }, "السياق متوافق مع البلاغ لكنه ما بيأكدهوش. \"لم يُرصد\" معناها القياس ما شافش المشكلة، مش إنه نفاها."));
+    body.append(...list(items, emptyText));
+  }
+  card.append(body);
+  return card;
+}
+
+// ------------------------------------------------------------------ timeline
+const BUCKET_LABEL = { supporting: "داعم", contradicting: "مناقض", contextual: "سياق", uncertain: "إتاحة غير مؤكدة",
+  unknown: "إتاحة مجهولة", later: "لاحق", excluded: "مستبعد" };
+function timelineCard(r, a) {
+  const interps = a.interpretations;
+  const i = interps[Math.min(state.interp, interps.length - 1)];
+  const card = el("details", { class: "card", id: "timeline", open: !isNarrow() });
+  if (!i || !i.valid) {
+    card.append(el("summary", {}, el("h2", {}, "الخط الزمني للأدلة (Evidence Timeline)")), el("div", { class: "empty" }, "مفيش خط زمني لتفسير غير صالح."));
+    return card;
+  }
+  const sel = L.timelineSelection(i);
+  card.append(el("summary", {}, el("h2", {}, "الخط الزمني للأدلة (Evidence Timeline)",
+    el("span", { class: "note", "data-role": "timeline-count" }, `معروض ${sel.shown.length} من ${sel.total} سجل ليه وقت`))));
+  if (sel.omitted || sel.withoutTime || sel.truncatedObservations.length) {
+    card.append(el("div", { class: "warn", "data-role": "timeline-disclosure" },
+      sel.omitted ? [`الخط الزمني بيعرض أول ${sel.shown.length} سجل بس من ${sel.total}. السجلات اللي مش معروضة موجودة ولسه جزء من التقييم: `,
+        Object.entries(sel.omittedByBucket).map(([k, n]) => `${BUCKET_LABEL[k] || k}: ${n}`).join(" · "), ". كلها موجودة في تبويبات الأدلة. "] : "",
+      sel.withoutTime ? `${sel.withoutTime} سجل مالوش وقت ملاحظة، فمش مرسوم. ` : "",
+      sel.truncatedObservations.length ? ["سجلات معروض جزء من ملاحظاتها بس: ",
+        sel.truncatedObservations.map(o => `${o.evidence_id} (${o.shown} من ${o.total})`).join(" · ")] : ""));
+  }
+  const asOf = new Date(a.as_of_utc);
+  const created = interps.filter(x => x.created_utc).map(x => ({ t: new Date(x.created_utc), label: x.time_label }));
+  const items = sel.shown;
+  if (!items.length) card.append(el("div", { class: "empty" }, "مفيش سجلات أدلة ليها أوقات في التفسير ده — بيظهر بس وقت التقديم ووقت التقييم."));
+  const times = [asOf, ...created.map(c => c.t)];
+  items.forEach(e => { times.push(new Date(e.time.first_observed_utc));
+    if (e.time.last_observed_utc) times.push(new Date(e.time.last_observed_utc));
+    if (e.time.availability_latest_utc) times.push(new Date(e.time.availability_latest_utc)); });
+  let t0 = Math.min(...times), t1 = Math.max(...times);
+  if (t1 - t0 < 3600e3) { t0 -= 1800e3; t1 += 1800e3; }
+  const pad = (t1 - t0) * 0.04; t0 -= pad; t1 += pad;
+  const W = 980, left = 220, right = 20, top = 34, rowH = 22, H = top + Math.max(items.length, 1) * rowH + 40;
+  const x = t => left + (W - left - right) * (t - t0) / (t1 - t0);
+  const svg = s("svg", { width: "100%", viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Evidence timeline",
+    style: "font-family:Segoe UI,Tahoma,sans-serif;min-width:720px;height:auto;display:block" });
+  svg.append(s("defs", {},
+    s("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" },
+      s("rect", { width: 6, height: 6, fill: "#fdf3e1" }), s("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#c98a1a", "stroke-width": 2 }))));
+  const span = t1 - t0, step = [15, 30, 60, 120, 180, 360, 720, 1440, 2880].map(m => m * 60e3).find(v => span / v <= 8) || 5760 * 60e3;
+  for (let t = Math.ceil(t0 / step) * step; t <= t1; t += step) {
+    svg.append(s("line", { x1: x(t), y1: top - 6, x2: x(t), y2: H - 30, stroke: "#eef0f3" }));
+    svg.append(s("text", { x: x(t), y: H - 12, "font-size": 10.5, fill: "#5b6676", "text-anchor": "middle" }, cairo(new Date(t).toISOString()).slice(5)));
+  }
+  created.forEach((c, k) => {
+    svg.append(s("line", { x1: x(c.t), y1: top - 14, x2: x(c.t), y2: H - 30, stroke: "#1f3a5f", "stroke-width": 2 }));
+    svg.append(s("text", { x: x(c.t) + 3, y: 12 + k * 11, "font-size": 10.5, fill: "#1f3a5f" }, `complaint ${created.length > 1 ? c.label : ""}`));
+  });
+  svg.append(s("line", { x1: x(asOf), y1: top - 14, x2: x(asOf), y2: H - 30, stroke: "#111827", "stroke-width": 2, "stroke-dasharray": "5 3" }));
+  svg.append(s("text", { x: x(asOf) + 3, y: top - 4, "font-size": 10.5, fill: "#111827" }, "assessment (as_of)"));
+  items.forEach((e, k) => {
+    const y = top + k * rowH + rowH / 2;
+    const bucket = L.timelineBucket(e);
+    const g = s("g", { opacity: bucket === "later" ? 0.45 : bucket === "uncertain" || bucket === "unknown" ? 0.6 : (e.counted ? 1 : 0.65) });
+    const tag = { later: " (later)", uncertain: " (uncertain)", unknown: " (unknown)" }[bucket] || "";
+    g.append(s("text", { x: 4, y: y + 4, "font-size": 10.5, fill: "#1c2430" }, `${e.evidence_type}${tag} ${String(e.source_record_id || "").slice(0, 16)}`));
+    const t = e.time;
+    if (t.availability_earliest_utc && t.availability_latest_utc) {
+      const xa = x(new Date(t.availability_earliest_utc)), xb = x(new Date(t.availability_latest_utc));
+      const fill = t.basis === "reconstructed_replay" ? "url(#hatch)" : t.basis === "assumed_from_event_time" ? "#fff" : "#dbe5f1";
+      g.append(s("rect", { x: Math.min(xa, xb), y: y - 4, width: Math.max(Math.abs(xb - xa), 3), height: 8, fill,
+        stroke: bucket === "uncertain" ? "#b42318" : t.basis === "assumed_from_event_time" ? "#8a5a00" : "#9fb0c8",
+        "stroke-dasharray": bucket === "uncertain" || t.basis === "assumed_from_event_time" ? "3 2" : null },
+        s("title", {}, `availability ${cairo(t.availability_earliest_utc)} → ${cairo(t.availability_latest_utc)} · ${t.basis} · ${bucket}`)));
+    }
+    if (t.observation_count > 1 && t.last_observed_utc !== t.first_observed_utc) {
+      g.append(s("line", { x1: x(new Date(t.first_observed_utc)), y1: y, x2: x(new Date(t.last_observed_utc)), y2: y, stroke: "#1c2430", "stroke-width": 1 }));
+    }
+    (t.observations || []).forEach(o => g.append(s("circle", { cx: x(new Date(o.observed_utc)), cy: y, r: 3.2,
+      fill: e.role === "supports" ? "#166534" : e.role === "contradicts" ? "#5b3c8f" : e.role === "context" ? "#c98a1a" : "#9ca3af" },
+      s("title", {}, `observed ${cairo(o.observed_utc)} (Cairo)`))));
+    svg.append(g);
+  });
+  card.append(el("div", { class: "timeline-wrap" }, svg));
+  card.append(el("div", { class: "legend" },
+    el("span", {}, el("i", { style: "background:#1f3a5f" }), "تقديم الشكوى"),
+    el("span", {}, el("i", { style: "background:#111827" }), "وقت التقييم (as_of)"),
+    el("span", {}, el("i", { style: "background:#c98a1a;border-radius:50%;width:8px" }), "وقت الملاحظة"),
+    el("span", {}, el("i", { style: "background:#dbe5f1;border:1px solid #9fb0c8" }), "وقت إتاحة مسجّل"),
+    el("span", {}, el("i", { style: "background:repeating-linear-gradient(45deg,#fdf3e1 0 3px,#c98a1a 3px 5px)" }), "إتاحة مُعاد بناؤها من الـreplay (مش مؤكدة تشغيليًا)"),
+    el("span", {}, el("i", { style: "background:#fff;border:1px dashed #8a5a00" }), "إتاحة مفترضة (synthetic)"),
+    el("span", {}, el("i", { style: "background:#fff;border:1px dashed #b42318" }), "إتاحة غير مؤكدة وقت التقييم"),
+    el("span", {}, el("i", { style: "background:#e5e7eb" }), "باهت = لاحق أو غير محسوب")));
+  if (state.mode === "A") card.append(el("div", { class: "note", style: "margin-top:6px" },
+    "أوقات إنذارات EWS مُعاد بناؤها من الـreplay التاريخي (available_at = observed_at في كل snapshot) + هامش 30 دقيقة افتراضي؛ مش وقت إتاحة تشغيلي حقيقي."));
+  return card;
+}
+
+function humanVerificationCard() {
+  return el("details", { class: "card", id: "humanVerification" },
+    el("summary", {}, el("h2", {}, "التحقق البشري (Human Verification)", el("span", { class: "preview-tag" }, "معاينة فقط — غير متاح في النموذج"))),
+    el("div", { class: "warn" }, "الجزء ده بيعرض شكل التسجيل المخطط له بس. مفيش حفظ ولا إرسال، ومفيش أي نتيجة معاينة متسجلة في النظام."),
+    el("fieldset", { class: "preview", disabled: true },
+      el("label", {}, "نتيجة المعاينة"), el("select", { disabled: true },
+        ...["الحالة اتشافت", "الحالة مش موجودة وقت المعاينة", "آثار حدوث حديث", "اتصلحت قبل المعاينة (بسجل)", "ما قدرناش نوصل", "غير حاسمة"].map(t => el("option", {}, t))),
+      el("label", {}, "طريقة المعاينة"), el("select", { disabled: true }, ...["زيارة ميدانية", "مراجعة telemetry عن بُعد", "مراجعة كاميرا", "متابعة مع المواطن"].map(t => el("option", {}, t))),
+      el("label", {}, "وقت المعاينة الفعلي / المسؤول / مرجع الدليل"), el("input", { disabled: true, placeholder: "غير متاح في النموذج الأولي" }),
+      el("label", {}, "القيود وعدم اليقين"), el("textarea", { disabled: true, rows: 2, placeholder: "غير متاح في النموذج الأولي" })),
+    el("div", { class: "note", style: "margin-top:6px" }, "جودة كل سجل هتتقيّم لاحقًا (L0–L3)، والإغلاق الإداري عمره ما هيتحسب تحقق."));
+}
+
+function renderMain() {
+  const main = document.getElementById("main");
+  const r = records().find(x => idOf(x) === state.selected);
+  if (!r) {
+    main.replaceChildren(el("section", { class: "card", id: "noSelection" },
+      el("h2", {}, "مفيش شكوى مطابقة"),
+      el("p", {}, "البحث أو الفلاتر الحالية ما بتطابقش أي سجل، فمفيش تفاصيل معروضة."),
+      el("button", { class: "linkbtn", onclick: clearAll }, "مسح البحث والفلاتر")));
+    return;
+  }
+  const a = assessmentOf(r);
+  main.replaceChildren(
+    summaryCard(r, a),
+    complaintCard(r),
+    el("div", { class: "grid2" }, assessmentCard(r, a), recommendationCard(r, a)),
+    evidenceCard(a),
+    timelineCard(r, a),
+    humanVerificationCard(),
+    el("div", { class: "note" }, ...(DATA.guardrails_ar || []).map(g => el("div", {}, "• " + g))),
+  );
+}
+
+function clearAll() {
+  state.search = ""; state.filters = L.emptyFilters();
+  document.getElementById("search").value = "";
+  refresh();
+}
+
+function setMode(mode) {
+  Object.assign(state, L.stateForMode(DATA, mode));
+  document.getElementById("search").value = "";
+  document.getElementById("modeA").classList.toggle("active", mode === "A");
+  document.getElementById("modeB").classList.toggle("active", mode === "B");
+  const banner = document.getElementById("banner");
+  banner.className = `banner ${mode === "A" ? "mode-a" : "mode-b"}`;
+  banner.textContent = mode === "A" ? `${DATA.mode_a.banner} · ${DATA.mode_a.label}` : `${DATA.mode_b.banner} · ${DATA.mode_b.label}`;
+  document.getElementById("timeSeg").style.display = mode === "A" ? "flex" : "none";
+  state.tab = defaultTab();
+  refresh();
+}
+
+function init() {
+  if (!DATA || !L) {
+    document.getElementById("layout").replaceChildren(el("div", { class: "error" },
+      el("h2", {}, "بيانات العرض مش موجودة"),
+      el("p", {}, "شغّل الأمر ده من فولدر المشروع وبعدين افتح الصفحة تاني:"),
+      el("pre", { class: "mono" }, "python -B -m complaint_verification.dashboard.build_presentation")));
+    return;
+  }
+  document.getElementById("modeA").addEventListener("click", () => setMode("A"));
+  document.getElementById("modeB").addEventListener("click", () => setMode("B"));
+  document.getElementById("search").addEventListener("input", e => { state.search = e.target.value; refresh({ filters: false }); });
+  document.getElementById("clearFilters").addEventListener("click", clearAll);
+  document.getElementById("pickerToggle").addEventListener("click", () =>
+    setPicker(document.getElementById("sidebar").classList.contains("collapsed")));
+  document.querySelectorAll("#timeSeg button").forEach(b => b.addEventListener("click", () => {
+    state.time = b.dataset.time;
+    document.querySelectorAll("#timeSeg button").forEach(x => x.classList.toggle("active", x === b));
+    refresh();
+  }));
+  setMode("A");
+}
+init();
+</script>
+</body>
+</html>

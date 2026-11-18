@@ -1,0 +1,16 @@
+﻿pillar,metric,quantity,unit,egp,basis
+water,Open water-network faults,8553.183,fault-hours,1129276.796,fault-hours x typical leak (L/s) x 3.6 x water price
+water,Water loss at the national rate,1020420.53,m3/year,4591892.387,billed m3 x 24.9% / (1 - 24.9%) x water price
+buildings,Open HVAC faults,5475.25,fault-hours,124518.136,fault-hours x typical HVAC excess (kW) x electricity price
+buildings,HVAC running in empty buildings above normal idle,5953.8,kWh,16313.412,sum of (hvac_kw - building's idle median) while occupancy = 0 x electricity price
+energy,Electricity spikes caught by the early warning,8912.79,kWh,24421.045,sum of (peak - baseline) kWh of electricity warnings x electricity price (lower bound: one reading each)
+energy,Open streetlight faults,14455.533,fault-hours,,needs lamp power and repair cost
+public_safety,Dark lamp-nights (fault or off),10704,lamp-hours,,risk only
+public_safety,Camera downtime,9953.784,camera-hours,,risk only
+public_safety,Open CCTV faults,11364.65,fault-hours,,risk only
+waste,Bins at or above 90% full,70071,bin-hours,,needs cleanup cost per bin-hour
+waste,Open waste-bin faults,15548.517,fault-hours,,needs cleanup cost
+mobility,Open traffic-signal faults,5839.383,fault-hours,,needs value of time
+citizen_services,Complaints closed after the 48 h SLA,22566,complaints,,needs complaint handling cost
+citizen_services,Hours beyond the complaint SLA,858914.85,hours,,risk only
+environment,Station-days above the WHO PM2.5 interim target,43,station-days,,exposure indicator only

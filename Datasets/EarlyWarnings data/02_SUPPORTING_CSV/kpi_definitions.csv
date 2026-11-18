@@ -1,0 +1,17 @@
+﻿kpi_id,pillar,metric_source,scope,formula,unit,direction
+avg_kwh_per_meter_reading,energy,electricity_meters,zone_after_mapping,mean(kwh),kWh/reading,neutral
+avg_m3_per_meter_reading,water,water_meters,zone_after_mapping,mean(m3),m3/reading,neutral
+avg_water_pressure_bar,water,network_pressure,zone_after_mapping,mean(pressure_bar),bar,neutral
+avg_vehicle_speed_kmh,mobility,traffic_counts,zone_after_mapping,mean(avg_speed_kmh),km/h,neutral
+avg_bin_fill_pct,waste,bin_fill,zone_after_mapping,mean(fill_pct),%,lower
+avg_camera_uptime_pct,public_safety,camera_status,zone_after_mapping,mean(uptime_pct),%,higher
+avg_indoor_temp_c,buildings,bms_readings,zone_after_mapping,mean(indoor_temp_c),C,neutral
+avg_pm25,environment,air_quality,zone_after_mapping,mean(pm25),ug/m3,lower
+mean_sensor_laeq_db,environment,noise,zone_after_mapping,mean(laeq_db),dB,lower
+complaints_received,citizen_services,service_requests,zone,count(request_id),requests,neutral
+avg_complaint_resolution_hours,citizen_services,service_requests,zone,"mean(hours_between(created_at,closed_at) where status=closed and closed_at>=created_at)",hours,lower
+incident_count,public_safety,incidents,zone,count(incident_id),incidents,neutral
+avg_response_min,public_safety,incidents,zone,mean(response_min),min,lower
+gov_transactions,citizen_services,gov_services,city_only,sum(transactions),transactions,neutral
+avg_gov_processing_days,citizen_services,gov_services,city_only,sum(transactions*avg_processing_days)/sum(transactions),days,lower
+avg_collected_tonnes_per_trip,waste,collection_trips,city_only,mean(tonnes),tonnes/trip,neutral

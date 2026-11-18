@@ -1,0 +1,77 @@
+﻿category_id,category_alias
+waste_overflow,تراكم المخلفات
+waste_overflow,تراكم مخلفات
+waste_overflow,مخلفات
+waste_overflow,القمامة
+waste_overflow,Waste
+streetlights,إنارة الشوارع
+streetlights,Streetlight
+streetlights,الإنارة
+streetlights,انارة الشوارع
+streetlights,إنارة
+cleanliness,النظافة العامة
+cleanliness,Cleanliness
+cleanliness,النظافه العامة
+cleanliness,نظافة
+cleanliness,نظافة عامة
+water_leak,تسرب مياه
+water_leak,Water leak
+water_leak,تسرب المياه
+water_leak,تسريب مياه
+roads,الطرق والأرصفة
+roads,Roads
+roads,الارصفة
+roads,الطرق
+roads,طرق وأرصفة
+parking,مخالفات الانتظار
+parking,Parking
+parking,مخالفات انتظار
+parking,ركن السيارات
+parking,الانتظار
+noise,ضوضاء
+noise,Noise
+noise,الضوضاء
+noise,ازعاج
+water_outage,انقطاع المياه
+water_outage,المياه
+water_outage,Water
+water_outage,انقطاع مياه
+water_outage,قطع المياه
+power_outage,انقطاع الكهرباء
+power_outage,Electricity
+power_outage,قطع الكهرباء
+power_outage,انقطاع كهرباء
+power_outage,الكهرباء
+sewer,الصرف الصحي
+sewer,صرف صحي
+sewer,الصرف
+sewer,Sewage
+sewer,المجاري
+safety,الأمن والسلامة
+safety,السلامة
+safety,الامن والسلامة
+safety,أمن
+safety,Safety
+traffic_signals,إشارات المرور
+traffic_signals,إشارة مرور
+traffic_signals,اشارات المرور
+traffic_signals,Traffic signals
+traffic_signals,المرور
+parks,الحدائق والمساحات الخضراء
+parks,Parks
+parks,المساحات الخضراء
+parks,الحدائق
+parks,حدائق ومساحات خضراء
+hvac,تكييف مبنى عام
+hvac,AC failure
+hvac,التكييف
+hvac,تكييف مبني عام
+hvac,تكييف
+app,مشكلة في التطبيق
+app,App problem
+app,مشكلة بالتطبيق
+app,التطبيق
+app,مشكله في التطبيق
+water_pressure_low,ضعف ضغط المياه
+water_pressure_low,ضغط المياه منخفض
+water_pressure_low,ضعف ضغط المية

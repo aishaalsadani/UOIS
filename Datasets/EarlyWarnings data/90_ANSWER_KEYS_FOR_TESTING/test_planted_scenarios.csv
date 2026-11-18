@@ -1,0 +1,4 @@
+﻿story_id,zone_id,start_date,end_date,category_id,expected_complaints,expected_unique_issue_clusters
+STORY_Z03_WATER,Z03,2025-08-11,2025-08-14,water_pressure_low,260,8
+STORY_Z05_SERVICE,Z05,2025-10-13,2025-10-15,app,120,12
+STORY_Z01_REFERENCE,Z01,2025-06-05,2025-06-16,noise,40,28

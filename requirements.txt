@@ -1,0 +1,32 @@
+# UOIS - Urban Operations Intelligence System
+# Python 3.10-3.13, 64-bit; Windows/Linux x86_64.
+# Install in a fresh virtual environment:
+# python -m pip install --upgrade pip setuptools wheel
+# python -m pip install -r requirements.txt
+# Python 3.14 and 32-bit Python are not supported by these pins.
+
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cpu
+# Require prebuilt wheels: avoid compiler/build-tool errors.
+--only-binary=:all:
+
+# Web and visualization
+Flask==3.1.2
+plotly==5.24.1
+
+# Explicit +cpu prevents pip from selecting a CUDA build from PyPI.
+torch==2.8.0+cpu; sys_platform != "darwin"
+torch==2.8.0; sys_platform == "darwin"
+transformers==4.57.6
+safetensors==0.6.2
+PyYAML==6.0.3
+
+# Analytics: keep major versions stable.
+lightgbm==4.6.0
+pandas==2.3.3
+numpy==2.2.6
+scikit-learn==1.6.1
+scipy==1.15.3
+
+# Tests
+pytest==8.4.2
