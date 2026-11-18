@@ -6,7 +6,9 @@
 
 > ⚠️ **All data is synthetic** and was generated with AI for training purposes. It contains no real ACUD or citizen data.
 
-🔗 **Live demo:** _coming soon_
+🔗 **Live demo:** [uois.vercel.app](https://uois.vercel.app) (City Map and UOIS dashboard) · [uois.vercel.app/forecast](https://uois.vercel.app/forecast) (Executive Dashboard and Forecast)
+
+> The live demo is the front end only. AI features that need the Python backend (BERT classification, live early-warning scoring, cost recompute) show as offline there. Run the platform locally to use them.
 
 ![Executive dashboard](Output/build/shots/dash1_1280.png)
 
